@@ -1,6 +1,6 @@
 from modules.apriori import Apriori
-
 #    apriori.py will contain a class Apriori // similarly with other imported files
+
 from modules.segmentation import segmentation
 from sample_plots import plotting_sample
 
