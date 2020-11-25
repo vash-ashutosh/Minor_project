@@ -13,6 +13,8 @@ class  Retailor():
         # self.plotting = plotting_sample()
         self.seg = seg
         
+
+
     def clubbing(self):
         """
         use apriori class functions 
@@ -21,11 +23,19 @@ class  Retailor():
         self.Apriori.show()
         # pass
 
+
+
     def forecast(self):
         plotting_sample()
-        
+
+
+
+
     def customer_segments(self):
-        self.seg.preprocess()
+        """
+        plot 2 plots of customer segments after dividing customer in different segments using RFM technique
+        """
+        self.seg.get_customer_segments()
 
 
 
