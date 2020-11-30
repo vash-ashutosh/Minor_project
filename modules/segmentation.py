@@ -4,24 +4,28 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 from datetime import *
-# import IPython.terminal.pt_inputhooks.osx
 import os
 import matplotlib
 
 class segmentation():
+
     def __init__(self):
-        self.sales = pd.read_csv(str(os.getcwd())+'/Apriori/onlineretail2_clean.csv')
+        # self.sales = pd.read_csv(str(os.getcwd())+'/Apriori/onlineretail2_clean.csv')
+        self.sales = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/onlineretail_clean.csv')
         self.processed_data = None
 
     def get_customer_segments(self):
         self.preprocess()
         self.plot()
 
-
     def preprocess(self):
-        self.sales['InvoiceDate'] = pd.to_datetime(self.sales['InvoiceDate'])
+        # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
+        print(self.sales.info())
+        self.sales['InvoiceDate'] = pd.to_datetime((self.sales['InvoiceDate']))
+        print(self.sales.info())
         self.remove_null_data()
         sales = self.sales
+
 
         ## Now Lets find the first and second time a customer ordered by aggregating the values
         sales_ = sales.groupby('Invoice').agg(
