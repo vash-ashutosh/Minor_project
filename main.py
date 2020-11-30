@@ -44,3 +44,8 @@ R = Retailor()
 R.customer_segments()
 # R.forecast()
 # R.clubbing()
+
+
+
+
+
