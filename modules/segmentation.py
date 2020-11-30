@@ -11,7 +11,7 @@ class segmentation():
 
     def __init__(self):
         # self.sales = pd.read_csv(str(os.getcwd())+'/Apriori/onlineretail2_clean.csv')
-        self.sales = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/onlineretail_clean.csv')
+        self.sales = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/transactions_1.csv')
         self.processed_data = None
 
     def get_customer_segments(self):
@@ -266,10 +266,3 @@ class segmentation():
         
         
                 
-
-
-
-
-
-
-

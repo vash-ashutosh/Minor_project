@@ -1,4 +1,4 @@
-# from modules.apriori import Apriori
+from modules.apriori import Apriori
 #    apriori.py will contain a class Apriori // similarly with other imported files
 
 from modules.segmentation import segmentation
@@ -43,6 +43,7 @@ class  Retailor():
 # this object is for example only
 R = Retailor()
 R.customer_segments()
+R.clubbing()
 # R.forecast()
 # R.clubbing()
 
