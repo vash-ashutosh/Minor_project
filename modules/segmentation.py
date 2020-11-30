@@ -8,6 +8,7 @@ import os
 import matplotlib
 
 class segmentation():
+
     def __init__(self):
         # self.sales = pd.read_csv(str(os.getcwd())+'/Apriori/onlineretail2_clean.csv')
         self.sales = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/onlineretail_clean.csv')
@@ -16,7 +17,6 @@ class segmentation():
     def get_customer_segments(self):
         self.preprocess()
         self.plot()
-
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
