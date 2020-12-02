@@ -1,0 +1,45 @@
+
+
+
+Core - Your Best Customers
+RFM Score: 111
+
+Who They Are: Highly engaged customers who have bought the most recent, the most often, and generated the most revenue.
+
+Marketing Strategies: Focus on loyalty programs and new product introductions. These customers have proven to have a higher willingness to pay, so don't use discount pricing to generate incremental sales. Instead, focus on value added offers through product recommendations based on previous purchases.
+
+Loyal - Your Most Loyal Customers
+RFM Score: X1X
+
+Who They Are: Customers who buy the most often from your store.
+
+Marketing Strategies: Loyalty programs are effective for these repeat visitors. Advocacy programs and reviews are also common X1X strategies. Lastly, consider rewarding these customers with Free Shipping or other like benefits.
+
+Whales - Your ​Highest Paying Customers
+RFM Score: XX1
+
+Who They Are: Customers who have generated the most revenue for your store.
+
+Marketing Strategies: These customers have demonstrated a high willingness to pay. Consider premium offers, subscription tiers, luxury products, or value add cross/up-sells to increase AOV. Don't waste margin on discounts. 
+
+
+Promising - Faithful customers
+RFM Score: X13, X14
+
+Who They Are: Customers who return often, but do not spend a lot.
+
+Marketing Strategies: You've already succeeded in creating loyalty. Focus on increasing monetization through product recommendations based on past purchases and incentives tied to spending thresholds (pegged to your store AOV). 
+
+Rookies - Your Newest Customers
+RFM Score: 14X
+
+Who They Are: First time buyers on your site.
+
+Marketing Strategies: Most customers never graduate to loyal. Having clear strategies in place for first time buyers such as triggered welcome emails will pay dividends.
+
+Slipping - ​Once Loyal, Now Gone
+RFM Score: 44X
+
+Who They Are: Great past customers who haven't bought in awhile.
+
+Marketing Strategies: Customers leave for a variety of reasons. Depending on your situation price deals, new product launches, or other retention strategies.
