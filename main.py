@@ -4,6 +4,8 @@ from modules.apriori import Apriori
 from modules.segmentation import segmentation
 from sample_plots import plotting_sample
 
+
+
 # it will contain only retailor specific functions
 class  Retailor():
     def __init__(self, seg=segmentation(), Apriori = Apriori()):
@@ -21,15 +23,13 @@ class  Retailor():
         use apriori class functions 
         """
         # print('apriori')
-        self.apriori.show()
+        data = self.apriori.club()
+        print(data.head())
         # pass
-
 
 
     def forecast(self):
         plotting_sample()
-
-
 
 
     def customer_segments(self):
@@ -42,8 +42,9 @@ class  Retailor():
 
 # this object is for example only
 R = Retailor()
-R.customer_segments()
+# R.customer_segments()
 R.clubbing()
+
 # R.forecast()
 # R.clubbing()
 

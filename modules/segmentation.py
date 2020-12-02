@@ -1,10 +1,10 @@
 import numpy as np
+import os
 import pandas as pd 
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 from datetime import *
-import os
 import matplotlib
 
 class segmentation():
