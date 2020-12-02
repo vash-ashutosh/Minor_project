@@ -1,0 +1,30 @@
+
+greater the score greater the attribute
+R:Recency F:Frequency M:Monetary 
+
+
+category    R   F&M
+
+Champions	4-5	4-5
+
+Loyal Customers	2-5	3-5
+
+Potential Loyalist	3-5	1-3
+
+Recent Customers	4-5	0-1
+
+Promising	3-4	0-1
+
+Customers Needing Attention	2-3	2-3
+
+About To Sleep	2-3	0-2
+
+At Risk	0-2	2-5
+
+Can’t Lose Them	0-1	4-5
+
+Hibernating	1-2	1-2
+
+Lost	0-2	0-2
+
+

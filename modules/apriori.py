@@ -7,7 +7,8 @@ import os
 class Apriori():
 
     def __init__(self):
-        self.data = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/transactions_1.csv')
+        # self.data = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/transactions_1.csv')
+        self.data = None
         self.rules = None
         self.final_rules = None
 
@@ -52,7 +53,8 @@ class Apriori():
         rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
         self.rules = rules
 
-    def club(self):
+    def club(self, df):
+        self.data = df
         self.preprocess()
         self.get_rules()
         return self.rules

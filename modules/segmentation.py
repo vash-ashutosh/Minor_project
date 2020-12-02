@@ -3,6 +3,7 @@ import os
 import pandas as pd 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from modules.utils import *
 from datetime import datetime, timedelta
 from datetime import *
 import matplotlib
@@ -11,18 +12,26 @@ class segmentation():
 
     def __init__(self):
         # self.sales = pd.read_csv(str(os.getcwd())+'/Apriori/onlineretail2_clean.csv')
-        self.sales = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/transactions_1.csv')
+        self.sales = None
         self.processed_data = None
+        self.cluster1_data = None
+        self.cluster2_data = None
+        self.load()
 
-    def get_customer_segments(self):
+    def load(self):
+        self.cluster1_data = data
+        self.cluster2_data = cluster_info
+
+    def get_customer_segments(self,df):
+        self.sales = df
         self.preprocess()
         self.plot()
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
-        print(self.sales.info())
+        # print(self.sales.info())
         self.sales['InvoiceDate'] = pd.to_datetime((self.sales['InvoiceDate']))
-        print(self.sales.info())
+        # print(self.sales.info())
         self.remove_null_data()
         sales = self.sales
 
@@ -266,3 +275,4 @@ class segmentation():
         
         
                 
+
