@@ -26,7 +26,7 @@ export default function Menu() {
           </div>
           <div className="info">
             <a href="#" className="d-block">
-              Scooby Doo
+              Admin
             </a>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function Menu() {
               <a href="#" className="nav-link active">
                 <i className="nav-icon fas fa-tachometer-alt" />
                 <p>
-                  Dashboard
+                  Options
                   <i className="right fas fa-angle-left" />
                 </p>
               </a>
@@ -58,7 +58,7 @@ export default function Menu() {
                 <li className="nav-item">
                   <a href="./index2.html" className="nav-link">
                     <i className="far fa-circle nav-icon" />
-                    <p>Dashboard v2</p>
+                    <p>Add Data</p>
                   </a>
                 </li>
                 {/* <li className="nav-item">
