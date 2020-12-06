@@ -1,5 +1,6 @@
 import React from "react";
 import "../components/login.scss";
+import history from '../history';
 
 const initialState={
     username:"",
@@ -93,7 +94,11 @@ export default class Login extends React.Component {
            <button type="submit" className="btn" style={{color:'#2ECE7E'}} onClick={this.handleSubmit}>
              Login
            </button>
+           <button type="submit" className="btn" style={{color:'#2ECE7E'}}onClick={() => history.push('/Register')} >
+             Register
+           </button>
          </div>
+         
          </form>
        </div>
      );

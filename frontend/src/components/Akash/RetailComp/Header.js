@@ -11,7 +11,7 @@ export default function Header() {
           </a>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" className="nav-link">
+          <a href="http://localhost:3000/Retailerpage" className="nav-link">
             Home
           </a>
         </li>
@@ -21,8 +21,8 @@ export default function Header() {
           </a>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
-          <a href="#" className="nav-link">
-            Login
+          <a href="http://localhost:3000/" className="nav-link">
+            Logout
           </a>
         </li>
       </ul>

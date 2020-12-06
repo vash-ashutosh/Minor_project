@@ -3,6 +3,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import Customerpage from "./Ashu/customerpage";
 import Retailerpage from "./Akash/retailerpage";
 import Login from "./login";
+import Register from "./Register";
 import history from "../history";
 import Inventory from "./Ashu/Menuitems/List";
 import wallet from "./Ashu/Menuitems/Wallet";
@@ -15,6 +16,7 @@ export default class Routes extends Component {
             <Router history={history}>
                 <Switch>
                     <Route path="/" exact component={Login} />
+                    <Route path="/register" exact component={Register} />
                     <Route path="/Customerpage" component={Customerpage} />
                     <Route path="/Retailerpage" component={Retailerpage} />
                     <Route path="/List" component={Inventory} />
