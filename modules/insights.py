@@ -15,16 +15,16 @@ import sqlite3
 # cufflinks.set_config_file(world_readable=True, theme='pearl', offline=True)
 
 def insight_details(data):
-	transaction_table = 'transactions_2'
+	# transaction_table = 'transactions_2'
 
 
-	con = sqlite3.connect('database/new_data.db')
-	cursorObj = con.cursor()
-	cursorObj.execute('SELECT * FROM {}'.format(transaction_table))
-	rows = cursorObj.fetchall()
+	# con = sqlite3.connect('database/new_data.db')
+	# cursorObj = con.cursor()
+	# cursorObj.execute('SELECT * FROM {}'.format(transaction_table))
+	# rows = cursorObj.fetchall()
 
 
-	data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), con)
+	# data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), con)
 	print(data.head())
 
 
@@ -48,11 +48,14 @@ def insight_details(data):
 	data['Month'] = pd.DatetimeIndex(data['InvoiceDate']).month
 
 
+
+
 	#number of invoice per month
 
 	invoice_counts = data.groupby(['Year', 'Month']).Invoice.count()
 	invoice_counts.plot(kind='bar', title='Amount of invoices per month')
 	plt.show()
+
 
 	print(invoice_counts)
 
@@ -118,3 +121,63 @@ def insight_details(data):
 	print(hourly_sale)
 	hourly_sale.plot(kind='bar')
 	plt.show()
+
+
+	return invoice_counts,Customer_count_per_month,country_pie_best,country_pie_worst,weekly_sales,hourly_sale
+
+
+
+
+
+def get_months_years(data,bar_data):
+  data['Year'] = pd.DatetimeIndex(data['InvoiceDate']).year
+  data['Month'] = pd.DatetimeIndex(data['InvoiceDate']).month
+
+    #number of invoice per month
+
+  # invoice_counts = data.groupby(['Year', 'Month']).Invoice.count()
+
+  start_month = data['Month'][0]
+  end_month = data['Month'][len(data)-1]
+
+  start_year = data['Year'][0]
+  end_year = data['Year'][len(data)-1]
+
+  months = []
+  years = []
+
+
+  print(start_month)
+
+  for i in range(len(list(bar_data))):
+    if(start_month < 13):
+      months.append(start_month)
+      start_month = start_month+1
+      years.append(start_year)
+
+    else:
+      start_month = 1
+      start_year = start_year+1
+      months.append(start_month)
+      start_month = start_month+1
+      years.append(start_year)
+
+  return months,years
+
+
+
+
+
+# con = sqlite3.connect('../database/new_data.db')
+# cursorObj = con.cursor()
+# # cursorObj.execute('SELECT * FROM {}'.format(transaction_table))
+# # rows = cursorObj.fetchall()
+
+# transaction_table = 'transactions_2'
+
+
+# data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), con)
+
+# invoice_counts,customer_counts,country_best,country_worst,weekly_sales,hourly_sales = insight_details(data)
+# months,years = get_months_years(data,invoice_counts)
+
