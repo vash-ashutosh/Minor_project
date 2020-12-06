@@ -3,7 +3,7 @@ from modules.apriori import Apriori
 
 from modules.segmentation import segmentation
 from sample_plots import plotting_sample
-from modules.insights import insight_details
+from modules.insights import insight_details,get_months_years
 from modules.arima_forecast import forecasting
 import sqlite3
 import pandas as pd
@@ -138,7 +138,31 @@ class  Retailor():
 
 
         data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), con)
-        insight_details(data)
+        invoice_counts,customer_counts,country_best,country_worst,weekly_sales,hourly_sales = insight_details(data)
+        months,years = get_months_years(data,invoice_counts)
+
+        print('-----------------------invoice_counts-----------------------')
+        print(months,years,list(invoice_counts))
+
+
+        print('-----------------------customer_counts-----------------------')
+        print(months,years,list(customer_counts))
+
+
+        print('-----------------------country_best-----------------------')
+        print(country_best['Country'],country_best['TotalPrice'])
+
+
+        print('-----------------------country_worst-----------------------')
+        print(country_worst['Country'],country_worst['TotalPrice'])
+
+
+        print('-----------------------weekly_sales-----------------------')
+        print(weekly_sales['WeekDay'],weekly_sales['TotalPrice'])
+
+
+        print('-----------------------hourly_sales-----------------------')
+        print(hourly_sales['Hour'],hourly_sales['TotalPrice'])
 
 
     #################################################################
