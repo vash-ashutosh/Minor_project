@@ -17,7 +17,7 @@ app = Flask(__name__)
 def id_pass_check(email,pwd):
 	name = ""
 	
-	con = sqlite3.connect('database/new_data.db')
+	con = sqlite3.connect('/home/master/akashraj98/Minor_project/database/new_data.db')   #may need to change path of db
 	cursorObj = con.cursor()
 	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ? AND c_password = ?',(email,pwd,))
 	rows = cursorObj.fetchall()
