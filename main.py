@@ -3,7 +3,7 @@ from modules.apriori import Apriori
 
 from modules.segmentation import segmentation
 from sample_plots import plotting_sample
-from modules.insights import insight_details
+from modules.insights import insight_details,get_months_years
 from modules.arima_forecast import forecasting
 import sqlite3
 import pandas as pd
@@ -17,8 +17,8 @@ class  Retailor():
         # self.plotting = plotting_sample()
         self.seg = seg
         self.apriori = Apriori
-        self.con = sqlite3.connect('./database/new_data.db')
-        self.cursorObj  = self.con.cursor()
+        self.database = sqlite3.connect('./database/new_data.db')
+        
 
 
     ###############################################################################
@@ -35,9 +35,10 @@ class  Retailor():
         # print(data.head())
 
         filename = ""
-        
-        self.cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
-        rows = self.cursorObj.fetchall()
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        rows = cursorObj.fetchall()
 
         filename_table=''
         for row in rows:
@@ -50,7 +51,7 @@ class  Retailor():
 
         # print(rows[0])
 
-        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), self.con)
+        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
 
         print(df.head())
         data = self.apriori.club(df)
@@ -66,21 +67,22 @@ class  Retailor():
     def timeseries(self,name):
 
         filename = ""
-      
-        self.cursorObj.execute('SELECT Sales_table FROM retailor_data where Name = ?',(name,))
-        rows = self.cursorObj.fetchall()
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT Sales_table FROM retailor_data where Name = ?',(name,))
+        rows = cursorObj.fetchall()
 
         for row in rows:
             filename_table = row[0]
             
             print(filename_table)
 
-        self.cursorObj.execute('SELECT * FROM {}'.format(filename_table))
-        rows = self.cursorObj.fetchall()
+        cursorObj.execute('SELECT * FROM {}'.format(filename_table))
+        rows = cursorObj.fetchall()
 
         print(rows[0])
 
-        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), self.con)
+        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
 
         print(df.head())
 
@@ -98,9 +100,10 @@ class  Retailor():
         plot 2 plots of customer segments after dividing customer in different segments using RFM technique
         """
         filename = ""
-        
-        self.cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
-        rows = self.cursorObj.fetchall()
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        rows = cursorObj.fetchall()
 
         filename_table=''
         for row in rows:
@@ -113,7 +116,7 @@ class  Retailor():
 
         # print(rows[0])
 
-        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), self.con)
+        df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         self.seg.get_customer_segments(df)
 
 
@@ -122,9 +125,10 @@ class  Retailor():
     #INSIGHTS
 
     def insights(self,name):
-        
-        self.cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
-        rows = self.cursorObj.fetchall()
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        rows = cursorObj.fetchall()
 
         transaction_table = ""
         for row in rows:
@@ -133,17 +137,43 @@ class  Retailor():
             print(transaction_table)
 
 
-        data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), self.con)
-        insight_details(data)
+        data = pd.read_sql_query("SELECT * FROM {}".format(transaction_table), con)
+        invoice_counts,customer_counts,country_best,country_worst,weekly_sales,hourly_sales = insight_details(data)
+        months,years = get_months_years(data,invoice_counts)
+
+        print('-----------------------invoice_counts-----------------------')
+        print(months,years,list(invoice_counts))
+
+
+        print('-----------------------customer_counts-----------------------')
+        print(months,years,list(customer_counts))
+
+
+        print('-----------------------country_best-----------------------')
+        print(country_best['Country'],country_best['TotalPrice'])
+
+
+        print('-----------------------country_worst-----------------------')
+        print(country_worst['Country'],country_worst['TotalPrice'])
+
+
+        print('-----------------------weekly_sales-----------------------')
+        print(weekly_sales['WeekDay'],weekly_sales['TotalPrice'])
+
+
+        print('-----------------------hourly_sales-----------------------')
+        print(hourly_sales['Hour'],hourly_sales['TotalPrice'])
 
 
     #################################################################
     #LOGIN
     def login(self,email,password):
         type_of_user = ""
-
-        self.cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
-        rows = self.cursorObj.fetchall()
+    
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
+        rows = cursorObj.fetchall()
 
         for row in rows:
 
@@ -159,7 +189,9 @@ class  Retailor():
         db_phone = ""
         reply = "created"
 
-        self.cursorObj.execute('SELECT Name FROM registration_data where Email = ?',(email,))
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        cursorObj.execute('SELECT Name FROM registration_data where Email = ?',(email,))
         rows = cursorObj.fetchall()
 
 
@@ -168,8 +200,8 @@ class  Retailor():
             db_name = row[0]
 
             
-        self.cursorObj.execute('SELECT Name FROM registration_data where PhoneNo = ?',(phone,))
-        rows = self.cursorObj.fetchall()
+        cursorObj.execute('SELECT Name FROM registration_data where PhoneNo = ?',(phone,))
+        rows = cursorObj.fetchall()
 
         for row in rows:
             db_phone = row[0]
@@ -182,7 +214,7 @@ class  Retailor():
             sql = ''' INSERT INTO customer_data(Name,Email,Password,Type,PhoneNo)
                       VALUES(?,?,?,?,?) '''
             details = (name,email,password,type_of_user,phone)
-            self.cursorObj.execute(sql, details)
+            cursorObj.execute(sql, details)
          
             
             
@@ -197,7 +229,7 @@ class  Retailor():
         else:
             reply = 'user account already exist'
             
-        self.con.commit()
+        con.commit()
 
         return reply
 
