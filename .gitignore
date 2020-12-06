@@ -2,3 +2,7 @@
 /database/new_data.db
 __pycache__/
 *.py[cod]
+node_modules/
+.vscode/*
+.eslintcache
+envminor/*
