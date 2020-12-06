@@ -1,5 +1,0 @@
-{
-    "jupyter.jupyterServerType": "local",
-    "python.pythonPath": "/home/aman/newenv/bin/python3",
-    "python.formatting.provider": "black"
-}
