@@ -4,4 +4,4 @@ __pycache__/
 *.py[cod]
 node_modules/
 .vscode/
-.eslintcache
+frontend/.eslintcache
