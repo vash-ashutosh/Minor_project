@@ -3,5 +3,5 @@
 __pycache__/
 *.py[cod]
 node_modules/
-.vscode/
+.vscode/*
 frontend/.eslintcache
