@@ -1,7 +1,8 @@
 /database/create_manage
 /database/new_data.db
-__pycache__/
+__pycache__/*
 *.py[cod]
 node_modules/
 .vscode/*
 frontend/.eslintcache
+envminor/*
