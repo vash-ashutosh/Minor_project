@@ -1,11 +1,12 @@
 from flask import Flask,render_template
 from flask import request ,jsonify , Response
-
 import sqlite3
 import time
 import datetime
 import random
-# import pandas as pd
+
+import main
+# import pandas as pdS
 
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ app = Flask(__name__)
 def id_pass_check(email,pwd):
 	name = ""
 	
-	con = sqlite3.connect('database/Our_data.db')
+	con = sqlite3.connect('/home/master/akashraj98/Minor_project/database/new_data.db')   #may need to change path of db
 	cursorObj = con.cursor()
 	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ? AND c_password = ?',(email,pwd,))
 	rows = cursorObj.fetchall()
@@ -117,7 +118,7 @@ def handle_data():
 def get_data():
 	datasets = [{
         'type'                : 'line',
-        'data'                : [100, 120, 170, 80, 180, 177, 160],
+        'data'                : [100, 120, 170, 80, 180, 177, 160,45,467,23,456,12,356,46],
         'backgroundColor'     : 'transparent',
         'borderColor'         : '#007bff',
         'pointBorderColor'    : '#007bff',
@@ -127,7 +128,7 @@ def get_data():
       },
         {
           'type'                : 'line',
-          'data'                : [60, 80, 80, 67, 80, 77, 100],
+          'data'                : [60, 80, 160,45,467,23,456,12,356,46,80, 67, 80, 77, 100],
           'backgroundColor'     : 'tansparent',
           'borderColor'         : '#ced4da',
           'pointBorderColor'    : '#ced4da',

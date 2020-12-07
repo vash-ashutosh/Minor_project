@@ -9,7 +9,15 @@ const initialState={
     passwordError:"",
     //LoggedInUser:""
 }
+function postdata(username,pass){
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://127.0.0.1:5000/handle_data";
+  xmlhttp.open("POST",url,true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  let params = "email=${username}&pass=${password}"; 
+  xmlhttp.send(params);
 
+}
 export default class Login extends React.Component {
    
    state=initialState
@@ -40,8 +48,12 @@ export default class Login extends React.Component {
       this.setState({ passwordError, usernameError });
       return false;
     }
-
-    return true;
+    
+    let resp = postdata(this.state.username,this.state.password)
+    if (resp){
+      return true
+    }
+  
   };
 
   handleChange = event => {
