@@ -193,7 +193,7 @@ class  Retailor():
         cursorObj = con.cursor()
         cursorObj.execute('SELECT Name FROM registration_data where Email = ?',(email,))
         rows = cursorObj.fetchall()
-
+        
 
 
         for row in rows:
@@ -202,7 +202,7 @@ class  Retailor():
             
         cursorObj.execute('SELECT Name FROM registration_data where PhoneNo = ?',(phone,))
         rows = cursorObj.fetchall()
-
+        
         for row in rows:
             db_phone = row[0]
             
@@ -210,11 +210,61 @@ class  Retailor():
 
         if (db_name == '' and db_phone == ''):
 
-            reply = 'account can be created'
-            sql = ''' INSERT INTO customer_data(Name,Email,Password,Type,PhoneNo)
+            reply = 'account  created'
+            sql = ''' INSERT INTO registration_data(Name,Email,Password,Type,PhoneNo)
                       VALUES(?,?,?,?,?) '''
             details = (name,email,password,type_of_user,phone)
             cursorObj.execute(sql, details)
+            
+            #getting id which will be main component for distinguishing
+        
+            cursorObj.execute('select ID from registration_data where Email=? and PhoneNo = ?', (email, phone))
+            id_no = cursorObj.fetchall()[0][0]
+
+            if(type_of_user == 'customer'):
+                
+                # Entering values into customer_data
+
+                sql = ''' INSERT INTO customer_data
+                      VALUES(?,?,?) '''
+                
+                details = (str(id_no), name, "orders_"+str(id_no))
+                cursorObj.execute(sql, details)
+                
+                #creating respective tables
+                
+                sql = "CREATE TABLE "+ "orders_"+str(id_no) +" (Invoice TEXT, StockCode TEXT, Description TEXT, Quantity INTEGER, InvoiceDate TIMESTAMP, Price REAL, Country TEXT);"
+    
+                cursorObj.execute(sql)
+
+                print('successfully inserted into customer_data')
+            else:
+                # Entering values into retailer data
+                sql = ''' INSERT INTO retailor_data
+                      VALUES(?,?,?,?,?) '''
+                
+                details = (str(id_no), name, "store_"+str(id_no), "Sales_"+str(id_no), "Transactions_"+str(id_no))
+                cursorObj.execute(sql, details)
+                
+
+                # Create respective tables
+                
+                #sales
+                sql = "CREATE TABLE " + "sales_"+str(id_no) +" (Date	DATE, Price	REAL);"
+                cursorObj.execute(sql)
+
+                #store
+                sql = "CREATE TABLE "+"store_" + str(id_no)+" (StockCode	TEXT,Description	TEXT,Price	REAL,Quantity	INTEGER);"
+                cursorObj.execute(sql)
+
+                #transactions
+                sql = "CREATE TABLE "+ "transactions_"+str(id_no) +" (Invoice TEXT, StockCode TEXT, Description TEXT, Quantity INTEGER, InvoiceDate TIMESTAMP, Price REAL, 'Customer ID' REAL, Country TEXT);"
+                cursorObj.execute(sql)
+
+
+
+                print('successfully inserted into retailer_data')
+
          
             
             
@@ -253,6 +303,21 @@ if __name__ == '__main__':
     ##login status
     loggedIn = False
 
+    # user.register('aman', 'aman@gmail.com', 'aadasd', 'retailer', '123124355')
+    # print(user.register('aman', 'avik@gmail.com', 'aman1234', 'customer', '8220121355'))
+    print(user.register('aman', 'av21ik@gmail.com', 'aman1234', 'retailer', '82221121355'))
+    
+    print("user after registration")
+    
+    
+    
+    
+    
+    exit()
+    
+    
+    
+    
     ##user login
     print('-------------------------------------------LOGIN----------------------------------------')
     print('enter your details : ')
