@@ -243,7 +243,7 @@ class  Retailor():
                 sql = ''' INSERT INTO retailor_data
                       VALUES(?,?,?,?,?) '''
                 
-                details = (str(id_no), name, "store_"+str(id_no), "Sales_"+str(id_no), "Transactions_"+str(id_no))
+                details = (str(id_no), name, "store_"+str(id_no), "sales_"+str(id_no), "transactions_"+str(id_no))
                 cursorObj.execute(sql, details)
                 
 
@@ -303,9 +303,8 @@ if __name__ == '__main__':
     ##login status
     loggedIn = False
 
-    # user.register('aman', 'aman@gmail.com', 'aadasd', 'retailer', '123124355')
-    # print(user.register('aman', 'avik@gmail.com', 'aman1234', 'customer', '8220121355'))
-    print(user.register('aman', 'av21ik@gmail.com', 'aman1234', 'retailer', '82221121355'))
+    # print(user.register('sonu', 'asob@gmail.com', 'aman1234', 'retailer', '82281121355'))
+    # print(user.register('sonu', 'asa@mail.com', 'aman1234', 'customer', '82213121355'))
     
     print("user after registration")
     
