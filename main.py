@@ -306,13 +306,13 @@ if __name__ == '__main__':
     # print(user.register('sonu', 'asob@gmail.com', 'aman1234', 'retailer', '82281121355'))
     # print(user.register('sonu', 'asa@mail.com', 'aman1234', 'customer', '82213121355'))
     
-    print("user after registration")
+    # print("user after registration")
     
     
     
     
     
-    exit()
+    # exit()
     
     
     
@@ -352,10 +352,10 @@ if __name__ == '__main__':
 
 
     ## forecasting
-
-    name = details[2]
+    print("\n Printing Details:\n")
+    name = details[1]
     print(details)
-    type_of_user = details[5]
+    type_of_user = details[4]
     print(name)
 
 
