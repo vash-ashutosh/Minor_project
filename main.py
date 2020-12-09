@@ -10,6 +10,10 @@ import pandas as pd
 
 # it will contain only retailor specific functions
 class  Retailor():
+
+    user_id = 0
+    name = 'default'
+    user_type = 'customer'
     def __init__(self, seg=segmentation(), Apriori = Apriori() ):
         """
             loads respective class's object in Retailor class
@@ -165,6 +169,9 @@ class  Retailor():
         print(hourly_sales['Hour'],hourly_sales['TotalPrice'])
 
 
+        return list(months),list(years),list(invoice_counts),list(customer_counts),list(country_best['Country']),list(country_best['TotalPrice']),list(country_worst['Country']),list(country_worst['TotalPrice']),list(weekly_sales['WeekDay']),list(weekly_sales['TotalPrice']),list(hourly_sales['Hour']),list(hourly_sales['TotalPrice'])
+
+
     #################################################################
     #LOGIN
     def login(self,email,password):
@@ -174,6 +181,8 @@ class  Retailor():
         cursorObj = con.cursor()
         cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
         rows = cursorObj.fetchall()
+
+        
 
         for row in rows:
 
