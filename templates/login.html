@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+	<h1>Login</h1>
+	<div class="container">
+      <h1>Please login</h1>
+      <br>
+      <form action="/handle_data" method="post">
+        <input type="text" placeholder="Email" name="email" value="{{
+          request.form.email }}">
+         <input type="password" placeholder="Password" name="pass" value="{{
+          request.form.pass }}">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+
+</body>
+</html>
