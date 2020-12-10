@@ -53,8 +53,8 @@ def insight_details(data):
 	#number of invoice per month
 
 	invoice_counts = data.groupby(['Year', 'Month']).Invoice.count()
-	invoice_counts.plot(kind='bar', title='Amount of invoices per month')
-	plt.show()
+	# invoice_counts.plot(kind='bar', title='Amount of invoices per month')
+	# plt.show()
 
 
 	print(invoice_counts)
@@ -63,8 +63,8 @@ def insight_details(data):
 	#number of customer per month
 
 	Customer_count_per_month = data.groupby(['Year', 'Month']).CustomerID.count()
-	Customer_count_per_month.plot(kind='bar', title='Amount of customers per month')
-	plt.show()
+	# Customer_count_per_month.plot(kind='bar', title='Amount of customers per month')
+	# plt.show()
 
 	print(Customer_count_per_month)
 
@@ -81,10 +81,10 @@ def insight_details(data):
 
 	print(country_pie_best['Country'])
 
-	plt.pie(country_pie_best['TotalPrice'],labels=country_pie_best['Country'],autopct='%1.1f%%')
-	plt.title('My Title')
-	plt.axis('equal')
-	plt.show()
+	# plt.pie(country_pie_best['TotalPrice'],labels=country_pie_best['Country'],autopct='%1.1f%%')
+	# plt.title('My Title')
+	# plt.axis('equal')
+	# plt.show()
 
 
 	#top worst country by revenue
@@ -94,10 +94,10 @@ def insight_details(data):
 
 	print(country_pie_worst['Country'])
 
-	plt.pie(country_pie_worst['TotalPrice'],labels=country_pie_worst['Country'],autopct='%1.1f%%')
-	plt.title('My Title')
-	plt.axis('equal')
-	plt.show()
+	# plt.pie(country_pie_worst['TotalPrice'],labels=country_pie_worst['Country'],autopct='%1.1f%%')
+	# plt.title('My Title')
+	# plt.axis('equal')
+	# plt.show()
 
 
 
@@ -111,16 +111,16 @@ def insight_details(data):
 
 	print(weekly_sales)
 
-	weekly_sales.plot(kind='bar')
-	plt.show()
+	# weekly_sales.plot(kind='bar')
+	# plt.show()
 
 
 	#hourly sales
 
 	hourly_sale = data.groupby('Hour').TotalPrice.sum().reset_index()
 	print(hourly_sale)
-	hourly_sale.plot(kind='bar')
-	plt.show()
+	# hourly_sale.plot(kind='bar')
+	# plt.show()
 
 
 	return invoice_counts,Customer_count_per_month,country_pie_best,country_pie_worst,weekly_sales,hourly_sale

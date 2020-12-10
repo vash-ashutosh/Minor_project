@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+	<h1></h1>
+	<div class="container">
+      <h1>Register</h1>
+      <br>
+      <form action="/register_user" method="post">
+        <input type="email" placeholder="Email" name="email" value="{{
+          request.form.email }}">
+
+          <input type="text" placeholder="Name" name="name" value="{{
+          request.form.name }}">
+
+          <input type="text" placeholder="Type" name="type" value="{{
+          request.form.type }}">
+
+          <input type="text" placeholder="Phone" name="phone" value="{{
+          request.form.phone }}">
+
+         <input type="password" placeholder="Password" name="pass" value="{{
+          request.form.pass }}">
+          
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+
+</body>
+</html>

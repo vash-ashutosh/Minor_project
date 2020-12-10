@@ -2,7 +2,7 @@ from modules.apriori import Apriori
 #    apriori.py will contain a class Apriori // similarly with other imported files
 
 from modules.segmentation import segmentation
-from sample_plots import plotting_sample
+
 from modules.insights import insight_details,get_months_years
 from modules.arima_forecast import forecasting
 import sqlite3
@@ -10,6 +10,10 @@ import pandas as pd
 
 # it will contain only retailor specific functions
 class  Retailor():
+
+    user_id = 0
+    name = 'default'
+    user_type = 'customer'
     def __init__(self, seg=segmentation(), Apriori = Apriori() ):
         """
             loads respective class's object in Retailor class
@@ -25,7 +29,7 @@ class  Retailor():
     #CLUBBING
 
 
-    def clubbing(self,name):
+    def clubbing(self,id_no):
         """
         use apriori class functions 
         """
@@ -37,7 +41,7 @@ class  Retailor():
         filename = ""
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
         filename_table=''
@@ -64,12 +68,12 @@ class  Retailor():
     #FORCASTING
 
 
-    def timeseries(self,name):
+    def timeseries(self,id_no):
 
         filename = ""
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        cursorObj.execute('SELECT Sales_table FROM retailor_data where Name = ?',(name,))
+        cursorObj.execute('SELECT Sales_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
         for row in rows:
@@ -95,14 +99,14 @@ class  Retailor():
     #SEGMENTS
 
 
-    def customer_segments(self,name):
+    def customer_segments(self,id_no):
         """
         plot 2 plots of customer segments after dividing customer in different segments using RFM technique
         """
         filename = ""
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
         filename_table=''
@@ -124,10 +128,10 @@ class  Retailor():
     #############################################################
     #INSIGHTS
 
-    def insights(self,name):
+    def insights(self,id_no):
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        cursorObj.execute('SELECT Transactions_table FROM retailor_data where Name = ?',(name,))
+        cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
         transaction_table = ""
@@ -165,6 +169,9 @@ class  Retailor():
         print(hourly_sales['Hour'],hourly_sales['TotalPrice'])
 
 
+        return list(months),list(years),list(invoice_counts),list(customer_counts),list(country_best['Country']),list(country_best['TotalPrice']),list(country_worst['Country']),list(country_worst['TotalPrice']),list(weekly_sales['WeekDay']),list(weekly_sales['TotalPrice']),list(hourly_sales['Hour']),list(hourly_sales['TotalPrice'])
+
+
     #################################################################
     #LOGIN
     def login(self,email,password):
@@ -175,11 +182,13 @@ class  Retailor():
         cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
         rows = cursorObj.fetchall()
 
+        
+
         for row in rows:
 
-            type_of_user = row
+            details = row
 
-        return type_of_user
+        return details
 
 
     ##############################################################
@@ -243,18 +252,18 @@ class  Retailor():
                 sql = ''' INSERT INTO retailor_data
                       VALUES(?,?,?,?,?) '''
                 
-                details = (str(id_no), name, "store_"+str(id_no), "Sales_"+str(id_no), "Transactions_"+str(id_no))
+                details = (str(id_no), name, "store_"+str(id_no), "sales_"+str(id_no), "transactions_"+str(id_no))
                 cursorObj.execute(sql, details)
                 
 
                 # Create respective tables
                 
                 #sales
-                sql = "CREATE TABLE " + "sales_"+str(id_no) +" (Date	DATE, Price	REAL);"
+                sql = "CREATE TABLE " + "sales_"+str(id_no) +" (Date    DATE, Price REAL);"
                 cursorObj.execute(sql)
 
                 #store
-                sql = "CREATE TABLE "+"store_" + str(id_no)+" (StockCode	TEXT,Description	TEXT,Price	REAL,Quantity	INTEGER);"
+                sql = "CREATE TABLE "+"store_" + str(id_no)+" (StockCode    TEXT,Description    TEXT,Price  REAL,Quantity   INTEGER);"
                 cursorObj.execute(sql)
 
                 #transactions
@@ -300,20 +309,19 @@ if __name__ == '__main__':
     ##class object
     user = Retailor()
 
-    ##login status
-    loggedIn = False
+    # ##login status
+    # loggedIn = False
 
-    # user.register('aman', 'aman@gmail.com', 'aadasd', 'retailer', '123124355')
-    # print(user.register('aman', 'avik@gmail.com', 'aman1234', 'customer', '8220121355'))
-    print(user.register('aman', 'av21ik@gmail.com', 'aman1234', 'retailer', '82221121355'))
+    # print(user.register('sonu', 'asob@gmail.com', 'aman1234', 'retailer', '82281121355'))
+    # # print(user.register('sonu', 'asa@mail.com', 'aman1234', 'customer', '82213121355'))
     
-    print("user after registration")
-    
+    # print("user after registration")
     
     
     
     
-    exit()
+    
+    # exit()
     
     
     
@@ -352,35 +360,33 @@ if __name__ == '__main__':
     # print(reply)
 
 
-    ## forecasting
+    # forecasting
 
-    name = details[2]
+    name = details[1]
     print(details)
-    type_of_user = details[5]
+    type_of_user = details[4]
     print(name)
+
+    id_no = details[0]
 
 
     if type_of_user=='retailer':
         print('-------------------------------------------FORECAST----------------------------------------')
 
-        user.timeseries(name)
+        user.timeseries(id_no)
         print('-------------------------------------------INSIGHTS----------------------------------------')
 
-        user.insights(name)
+        user.insights(id_no)
 
         print('-------------------------------------------CLUBBING----------------------------------------')
-        user.clubbing(name)
+        user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        user.customer_segments(name)
+        user.customer_segments(id_no)
 
 
     else:
         print('Customer')
-    # user.clubbing()
+    
 
     # R.clubbing(name)
     # R.customer_segments(name)
-
-
-
-

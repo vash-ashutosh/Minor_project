@@ -5,7 +5,7 @@ import time
 import datetime
 import random
 
-import main
+from main import Retailor
 # import pandas as pdS
 
 app = Flask(__name__)
@@ -13,94 +13,102 @@ app = Flask(__name__)
 
 
 
-#checking and validating user id pass
-def id_pass_check(email,pwd):
-	name = ""
+# #checking and validating user id pass
+# def id_pass_check(email,pwd):
+# 	name = ""
 	
-	con = sqlite3.connect('/home/master/akashraj98/Minor_project/database/new_data.db')   #may need to change path of db
-	cursorObj = con.cursor()
-	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ? AND c_password = ?',(email,pwd,))
-	rows = cursorObj.fetchall()
+# 	con = sqlite3.connect('database/new_data.db')   #may need to change path of db
+# 	cursorObj = con.cursor()
+# 	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ? AND c_password = ?',(email,pwd,))
+# 	rows = cursorObj.fetchall()
 
-	for row in rows:
+# 	for row in rows:
 
-		name = row[0]
+# 		name = row[0]
 
-	return name 
+# 	return name 
 
-def registering(email,name,phone,password):
-	db_name = ""
-	db_phone = ""
-	reply = "created"
+# def registering(email,name,phone,password):
+# 	db_name = ""
+# 	db_phone = ""
+# 	reply = "created"
 
-	con = sqlite3.connect('database/Our_data.db')
-	cursorObj = con.cursor()
-	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ?',(email,))
-	rows = cursorObj.fetchall()
+# 	con = sqlite3.connect('database/Our_data.db')
+# 	cursorObj = con.cursor()
+# 	cursorObj.execute('SELECT c_name FROM customer_data where c_login_id = ?',(email,))
+# 	rows = cursorObj.fetchall()
 
 
 
-	for row in rows:
-	    db_name = row[0]
+# 	for row in rows:
+# 	    db_name = row[0]
 
 	    
-	cursorObj.execute('SELECT c_name FROM customer_data where c_ph_no = ?',(phone,))
-	rows = cursorObj.fetchall()
+# 	cursorObj.execute('SELECT c_name FROM customer_data where c_ph_no = ?',(phone,))
+# 	rows = cursorObj.fetchall()
 
-	for row in rows:
-	    db_phone = row[0]
+# 	for row in rows:
+# 	    db_phone = row[0]
 	    
 
 
-	if (db_name == '' and db_phone == ''):
+# 	if (db_name == '' and db_phone == ''):
 
-	    reply = 'account can be created'
-	    sql = ''' INSERT INTO customer_data(c_name,c_ph_no,c_login_id,c_password)
-	              VALUES(?,?,?,?) '''
-	    details = (name,phone,email,password)
-	    cursorObj.execute(sql, details)
+# 	    reply = 'account can be created'
+# 	    sql = ''' INSERT INTO customer_data(c_name,c_ph_no,c_login_id,c_password)
+# 	              VALUES(?,?,?,?) '''
+# 	    details = (name,phone,email,password)
+# 	    cursorObj.execute(sql, details)
 	 
 	    
 	    
 	    
-	elif(db_name != '' and db_phone ==''):
-	    reply = 'email is already registered'
+# 	elif(db_name != '' and db_phone ==''):
+# 	    reply = 'email is already registered'
 	    
-	elif(db_name == '' and db_phone !=''):
-	    reply = 'phone no is already registered'
+# 	elif(db_name == '' and db_phone !=''):
+# 	    reply = 'phone no is already registered'
 	   
 	    
-	else:
-	    reply = 'user account already exist'
+# 	else:
+# 	    reply = 'user account already exist'
 	    
-	con.commit()
+# 	con.commit()
 
-	return reply
-
-
+# 	return reply
 
 
+user = Retailor()
+user_id = ''
+user_name = ''
+user_type = ''
 
 
 @app.route('/')
-def hello():
+def home():
     return render_template("index.html")
 
 @app.route('/register')
-def register():
+def register_page():
 	return render_template('register.html')
+
+
+@app.route('/login')
+def login_page():
+	return render_template('login.html')
 
 @app.route('/register_user',methods=['POST']) 
 def register_user():
 	email = request.form['email']
 	name = request.form['name']
 	phone = request.form['phone']
-	password = request.form['password']
+	password = request.form['pass']
+	type_of_user = request.form['type']
 
-	reply = registering(email,name,phone,password)
-	
+	# reply = email+name+phone+password+type_of_user
+	reply = user.register(name,email,password,type_of_user,phone)
 
-	return reply
+	return render_template('home.html', mssg=reply,name=None,type_of_user=None)
 
 
 
@@ -111,11 +119,37 @@ def handle_data():
 
     print("Email : {}   Pass : {}".format(email,pwd))
 
-    string = id_pass_check(email,pwd)
-    return "Welcome  : " +string
+    # string = id_pass_check(email,pwd)
+    # return "Welcome  : " +string
+    # error = None
+    # if request.method == 'POST':
+    #     if email == 'admin' or pwd == 'admin':
+    #         error = 'valid Credentials. Please try again.'
+    details = user.login(email,pwd)
+    user.user_id = details[0]
+    user.name = details[1]
+    user.user_type = details[4]
+
+    return render_template('home.html', mssg=user_id,name=user_name,type_of_user=user_type)
+
+
+
+
+@app.route('/show_data')
+def show_data():
+	months,years,invoice_counts,customer_counts,country_best_count,Country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user.user_id)
+
+	return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,Country_best_price=Country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
+
 
 @app.route('/get_data')
 def get_data():
+
+	months,years,invoice_counts,customer_counts,country_best_count,Country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user_id)
+
+
+
+
 	datasets = [{
         'type'                : 'line',
         'data'                : [100, 120, 170, 80, 180, 177, 160,45,467,23,456,12,356,46],
@@ -143,5 +177,7 @@ def get_data():
 def add_header(response):
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	return response
+
+
 if __name__ == '__main__':
     app.run(debug=True)
