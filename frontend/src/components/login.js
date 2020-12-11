@@ -9,15 +9,25 @@ const initialState={
     passwordError:"",
     //LoggedInUser:""
 }
-function postdata(username,pass){
-  var xmlhttp = new XMLHttpRequest();
-  var url = "http://127.0.0.1:5000/handle_data";
-  xmlhttp.open("POST",url,true);
-  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  let params = "email=${username}&pass=${password}"; 
-  xmlhttp.send(params);
+export function postdata(username,pass){
 
-}
+  var formdata = new FormData();
+  formdata.append("email", username);
+  formdata.append("pass", pass);
+
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+  var a = fetch("http://127.0.0.1:5000/handle_data", requestOptions)
+    .then(response => response.json())
+    // .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  return a
+  }
+
+
 export default class Login extends React.Component {
    
    state=initialState
@@ -49,10 +59,13 @@ export default class Login extends React.Component {
       return false;
     }
     
-    let resp = postdata(this.state.username,this.state.password)
-    if (resp){
+    let  httpresp = postdata(this.state.username,this.state.password)
+                    .then(data => console.log(data))
+    // console.log(httpresp)
+    if (httpresp){
       return true
     }
+    return httpresp
   
   };
 

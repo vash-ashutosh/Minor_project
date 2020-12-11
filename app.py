@@ -79,9 +79,9 @@ app = Flask(__name__)
 
 
 user = Retailor()
-user_id = ''
-user_name = ''
-user_type = ''
+# user_id = ''
+# user_name = ''
+# user_type = ''
 
 
 @app.route('/')
@@ -129,17 +129,16 @@ def handle_data():
     user.user_id = details[0]
     user.name = details[1]
     user.user_type = details[4]
+    print("User",user.user_id)
 
-    return render_template('home.html', mssg=user_id,name=user_name,type_of_user=user_type)
-
-
+    return jsonify("'Username':'{}','UserID':'{}'".format(user.name,user.user_id))
 
 
 @app.route('/show_data')
 def show_data():
-	months,years,invoice_counts,customer_counts,country_best_count,Country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user.user_id)
+	months,years,invoice_counts,customer_counts,country_best_count,country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user.user_id)
 
-	return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,Country_best_price=Country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
+	return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,country_best_price=country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
 
 
 @app.route('/get_data')
@@ -177,6 +176,7 @@ def get_data():
 def add_header(response):
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	return response
+
 
 
 if __name__ == '__main__':
