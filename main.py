@@ -1,12 +1,10 @@
-from modules.apriori import Apriori
-#    apriori.py will contain a class Apriori // similarly with other imported files
-
-from modules.segmentation import segmentation
-
-from modules.insights import insight_details,get_months_years
-from modules.arima_forecast import forecasting
 import sqlite3
 import pandas as pd
+
+from modules.apriori import Apriori
+from modules.segmentation import segmentation
+from modules.insights import insight_details,get_months_years
+from modules.arima_forecast import forecasting
 
 # it will contain only retailor specific functions
 class  Retailor():
@@ -14,6 +12,7 @@ class  Retailor():
     user_id = 0
     name = 'default'
     user_type = 'customer'
+    
     def __init__(self, seg=segmentation(), Apriori = Apriori() ):
         """
             loads respective class's object in Retailor class
@@ -89,7 +88,6 @@ class  Retailor():
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
 
         print(df.head())
-
 
         forecasting(df)
 
@@ -175,14 +173,13 @@ class  Retailor():
     #################################################################
     #LOGIN
     def login(self,email,password):
+        
         type_of_user = ""
     
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
         cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
         rows = cursorObj.fetchall()
-
-        
 
         for row in rows:
 
@@ -270,8 +267,6 @@ class  Retailor():
                 sql = "CREATE TABLE "+ "transactions_"+str(id_no) +" (Invoice TEXT, StockCode TEXT, Description TEXT, Quantity INTEGER, InvoiceDate TIMESTAMP, Price REAL, 'Customer ID' REAL, Country TEXT);"
                 cursorObj.execute(sql)
 
-
-
                 print('successfully inserted into retailer_data')
 
          
@@ -307,6 +302,7 @@ class  Retailor():
 if __name__ == '__main__':
     
     ##class object
+    
     user = Retailor()
 
     # ##login status
