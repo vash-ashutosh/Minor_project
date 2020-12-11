@@ -1,6 +1,6 @@
 function getdata(){
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://127.0.0.1:5000/get_data";
+  var url = "http://127.0.0.1:5000/show_data?UserID=2";
   xmlhttp.open("GET",url,false);
   xmlhttp.send();
   return JSON.parse(xmlhttp.responseText);

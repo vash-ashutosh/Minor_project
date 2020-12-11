@@ -69,7 +69,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
+                    <h3 className="card-title">Weekly Sales</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
+                    <h3 className="card-title">Hourly Sales</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
