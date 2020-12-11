@@ -87,8 +87,8 @@ export default class Login extends React.Component {
          </div>
            <div className="form">
              <div className="form-group">
-               <label htmlFor="username">Username</label>
-               <input type="text" name="username" placeholder="username" value={this.state.username} onChange={this.handleChange} />
+               <label htmlFor="username">Email</label>
+               <input type="text" name="username" placeholder="Email" value={this.state.username} onChange={this.handleChange} />
                <div style={{ fontSize: 12, color: "red" }}>
                 {this.state.usernameError}
           </div>

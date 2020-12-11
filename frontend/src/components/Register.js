@@ -5,6 +5,8 @@ import PhoneInput from 'react-phone-input-2'
 const initialState={
     username:"",
     password:"",
+    email:"",
+    emailError:"",
     user:"",
     number:"",
     usernameError:"",
@@ -22,6 +24,7 @@ export default class Register extends React.Component {
    validate = () => {
     let usernameError = "";
     let passwordError = "";
+    let emailError = "";
 
     if (!this.state.username) {
       usernameError = "Username cannot be blank";
@@ -35,12 +38,12 @@ export default class Register extends React.Component {
         usernameError = "User info cannot be blank";
     }
 
-    if (!this.state.username.includes("@")) {
-      usernameError = "invalid email";
+    if (!this.state.email.includes("@")) {
+      emailError = "invalid email";
     }
 
-    if (!this.state.username.includes(".")) {
-        usernameError = "invalid email";
+    if (!this.state.email.includes(".")) {
+        emailError = "invalid email";
       }
 
     if (passwordError || usernameError) {
@@ -81,12 +84,19 @@ export default class Register extends React.Component {
               <img src={"https://raw.githubusercontent.com/vash-ashutosh/Project_SmartRetailer/9ea96ce060f477fafb3b297554477ab53eab561e/src/login.svg"} />
          </div>
            <div className="form">
-             <div className="form-group">
+           <div className="form-group">
                <label htmlFor="username">Username*</label>
                <input type="text" name="username" required="True" placeholder="username" value={this.state.username} onChange={this.handleChange} />
                <div style={{ fontSize: 12, color: "red" }}>
                 {this.state.usernameError}
           </div>
+             <div className="form-group">
+               <label htmlFor="email">Email*</label>
+               <input type="text" name="email" required="True" placeholder="username" value={this.state.username} onChange={this.handleChange} />
+               <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.emailError}
+          </div>
+             </div>
              </div>
              <div className="form-group">
                <label htmlFor="password">Password*</label>
