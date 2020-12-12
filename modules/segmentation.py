@@ -62,11 +62,13 @@ class segmentation():
             mp[df['new_label'][i]][0].add(df['Customer ID'][i])
 
         for i in mp:
+            mp[i][0] = list(mp[i][0])
             mp[i][1] = len(mp[i][0])
 
-        return mp
         # for i in mp:
         #     print(i, len(mp[i][0]), mp[i][1])
+        
+        return mp
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
