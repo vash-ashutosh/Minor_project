@@ -123,7 +123,7 @@ export default function Content() {
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="Invoice" height={200} />
+                    <canvas id="hourly-sales" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
@@ -139,7 +139,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Country wise Price</h3>
+                    <h3 className="card-title">Country wise best Price</h3>
                     <a href="http://localhost:3000/Offers">View Report</a>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
+                    <h3 className="card-title">Weekly Sales</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -318,7 +318,7 @@ export default function Content() {
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="sales-chart" height={200} />
+                    <canvas id="Weekly-sales" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
@@ -333,7 +333,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
+                    <h3 className="card-title">Invoice count per month</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -352,7 +352,7 @@ export default function Content() {
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="AmansLine1" height={200} />
+                    <canvas id="Invoicechart" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
