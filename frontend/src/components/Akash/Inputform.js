@@ -5,10 +5,17 @@ const initialState={
     custid:"",
     retid:"",
     country:"",
+    stockcode:"",
+    description:"",
+    price:"",
+    quantity:"",
+    stockcodeError:"",
+    descriptionError:"",
+    priceError:"",
+    quantityError:"",
     custidError:"",
     retidError:"",
-    countryError:"",
-    //LoggedInUser:""
+    countryError:""
 }
 export default class Datainput extends React.Component {
    
@@ -16,10 +23,16 @@ export default class Datainput extends React.Component {
    handlelogin = () => {
      this.props.history.push("/Retailerpage");
    }
+   
+
    validate = () => {
     let custidError = "";
     let retidError = "";
     let countryError = "";
+    let stockcodeError="";
+    let descriptionError="";
+    let priceError="";
+    let quantityError="";
 
     if (!this.state.custid) {
       custidError = "Customer ID cannot be blank";
@@ -32,9 +45,23 @@ export default class Datainput extends React.Component {
     if (!this.state.country) {
       countryError = "Country cannot be blank";
     }
+    
+    if (!this.state.stockcode) {
+      stockcodeError = "Stockcode cannot be blank";
+    }
 
-    if (custidError || retidError || countryError) {
-      this.setState({ custidError, retidError, countryError });
+    if (!this.state.description) {
+      descriptionError = "Description cannot be blank";
+    }
+    if (!this.state.price) {
+      priceError = "Price cannot be blank";
+    }
+    if (!this.state.quantity) {
+      quantityError = "Quantity cannot be blank";
+    }
+
+    if (custidError || retidError || countryError || stockcodeError || descriptionError || quantityError||priceError) {
+      this.setState({ custidError, retidError, countryError, stockcodeError ,descriptionError ,quantityError , priceError});
       return false;
     }
     
@@ -43,6 +70,8 @@ export default class Datainput extends React.Component {
 
   
   };
+
+
 
   handleChange = event => {
     const isCheckbox = event.target.type === "checkbox";
@@ -58,6 +87,7 @@ export default class Datainput extends React.Component {
     const isValid = this.validate();
     if (isValid) {
       console.log(this.state);
+      this.handlelogin();
       // clear form
       this.setState(initialState);
     }
@@ -89,6 +119,34 @@ export default class Datainput extends React.Component {
                <input type="text" name="country" placeholder="Country" value={this.state.country} onChange={this.handleChange}/>
                <div style={{ fontSize: 12, color: "red" }}>
             {this.state.countryError}
+          </div>
+             </div>
+             <div className="form-group">
+               <label htmlFor="stockcode">Stockcode*</label>
+               <input type="text" name="stockcode" placeholder="Enter..." value={this.state.stockcode} onChange={this.handleChange}/>
+               <div style={{ fontSize: 12, color: "red" }}>
+            {this.state.stockcodeError}
+          </div>
+             </div>
+             <div className="form-group">
+               <label htmlFor="description">Description*</label>
+               <input type="text" name="description" placeholder="Enter description" value={this.state.description} onChange={this.handleChange}/>
+               <div style={{ fontSize: 12, color: "red" }}>
+            {this.state.descriptionError}
+          </div>
+             </div>
+             <div className="form-group">
+               <label htmlFor="price">Price*</label>
+               <input type="text" name="price" placeholder="Price" value={this.state.price} onChange={this.handleChange}/>
+               <div style={{ fontSize: 12, color: "red" }}>
+            {this.state.priceError}
+          </div>
+             </div>
+             <div className="form-group">
+               <label htmlFor="quantity">Quantity*</label>
+               <input type="text" name="quantity" placeholder="Enter Quantity" value={this.state.quantity} onChange={this.handleChange}/>
+               <div style={{ fontSize: 12, color: "red" }}>
+            {this.state.quantityError}
           </div>
              </div>
 
