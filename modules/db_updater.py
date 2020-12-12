@@ -121,17 +121,17 @@ class db_updater():
 
 
 
-db = db_updater()
-con = sqlite3.connect('./database/new_data.db')
-cursorObj = con.cursor()
-df2 =  pd.read_sql_query('select * from transactions_1', con)
-df  =  pd.read_sql_query('select * from store_1', con)
-db.upload_csv(con, cursorObj, 1, df, df2)
+# db = db_updater()
+# con = sqlite3.connect('./database/new_data.db')
+# cursorObj = con.cursor()
+# df2 =  pd.read_sql_query('select * from transactions_1', con)
+# df  =  pd.read_sql_query('select * from store_1', con)
+# db.upload_csv(con, cursorObj, 1, df, df2)
 
-print("updating for retailer 1")
+# print("updating for retailer 1")
 
-df2 =  pd.read_sql_query('select * from transactions_2', con)
-df  =  pd.read_sql_query('select * from store_2', con)
-db.upload_csv(con, cursorObj, 2, df, df2)
-print("updating for retailer 2")
-con.close()
+# df2 =  pd.read_sql_query('select * from transactions_2', con)
+# df  =  pd.read_sql_query('select * from store_2', con)
+# db.upload_csv(con, cursorObj, 2, df, df2)
+# print("updating for retailer 2")
+# con.close()
