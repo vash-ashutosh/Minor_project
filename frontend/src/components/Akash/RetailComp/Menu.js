@@ -141,7 +141,7 @@ export default function Menu() {
                 </li>
               </ul>
             </li> */}
-            <li className="nav-item has-treeview">
+            {/* <li className="nav-item has-treeview">
               <a href="#" className="nav-link">
                 <i className="nav-icon fas fa-chart-pie" />
                 <p>
@@ -169,7 +169,7 @@ export default function Menu() {
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> */}
             {/* <li className="nav-item has-treeview">
               <a href="#" className="nav-link">
                 <i className="nav-icon fas fa-tree" />
