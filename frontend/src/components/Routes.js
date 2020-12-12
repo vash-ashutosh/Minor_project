@@ -8,6 +8,7 @@ import history from "../history";
 import Inventory from "./Ashu/Menuitems/List";
 import wallet from "./Ashu/Menuitems/Wallet";
 import offers from "./Ashu/Menuitems/Offers";
+import Datainput from "./Akash/Inputform";
 
 
 export default class Routes extends Component {
@@ -22,6 +23,7 @@ export default class Routes extends Component {
                     <Route path="/List" component={Inventory} />
                     <Route path="/Wallet" component={wallet} />
                     <Route path="/Offers" component={offers} />
+                    <Route path="/Inputform" component={Datainput} />
                 </Switch>
             </Router>
         )

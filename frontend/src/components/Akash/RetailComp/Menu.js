@@ -56,7 +56,7 @@ export default function Menu() {
                   </a>
                 </li> */}
                 <li className="nav-item">
-                  <a href="./index2.html" className="nav-link">/Retailerpage#
+                  <a href="./Inputform" className="nav-link">
                     <i className="far fa-circle nav-icon" />
                     <p>Add Data</p>
                   </a>
