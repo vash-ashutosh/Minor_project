@@ -5,6 +5,7 @@ from modules.apriori import Apriori
 from modules.segmentation import segmentation
 from modules.insights import insight_details,get_months_years
 from modules.arima_forecast import forecasting
+from modules.db_updater import db_updater
 
 # it will contain only retailor specific functions
 class  Retailor():
@@ -93,7 +94,11 @@ class  Retailor():
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         con.close()
         print(df.head())
-        forecasting(df)
+        predictions,possible_min_sales,possible_max_sales,previous_sales = forecasting(df)
+
+        return predictions,possible_min_sales,possible_max_sales,previous_sales
+
+
 
 
 
@@ -200,7 +205,7 @@ class  Retailor():
 
     ##############################################################
     #REGISTER
-    def register(self,name,email,password,type_of_user,phone):
+    def register(self,name,email,password,type_of_user,phone,transactions_file,store_file):
         db_name = ""
         db_phone = ""
         reply = "created"
@@ -280,6 +285,12 @@ class  Retailor():
 
                 print('successfully inserted into retailer_data')
 
+                df = pd.read_csv(store_file)
+                df2 = pd.read_csv(transactions_file)
+
+                db = db_updater()
+                db.upload_csv(con, cursorObj, id_no, df, df2)
+
          
             
             
@@ -334,7 +345,7 @@ if __name__ == '__main__':
     
     
     
-    ##user login
+    #user login
     print('-------------------------------------------LOGIN----------------------------------------')
     print('enter your details : ')
     email = input()
@@ -363,12 +374,12 @@ if __name__ == '__main__':
 
 
 
-    # reply = user.register(name,email,password,type_of_user,phone)
+    # reply = user.register(name,email,password,type_of_user,phone,'sample_csv/new_retailer.csv','sample_csv/new_retailer_store.csv')
 
     # print(reply)
 
 
-    # forecasting
+    #forecasting
 
     name = details[1]
     print(details)
@@ -381,13 +392,17 @@ if __name__ == '__main__':
     if type_of_user=='retailer':
         print('-------------------------------------------FORECAST----------------------------------------')
 
-        user.timeseries(id_no)
+        predictions,possible_min_sales,possible_max_sales,previous_sales = user.timeseries(id_no)
+        print('prediction in main.py : ',predictions)
+
+        print('MAx sales : ',possible_max_sales)
+        print('min sales : ',possible_min_sales)
         print('-------------------------------------------INSIGHTS----------------------------------------')
 
         user.insights(id_no)
 
-        print('-------------------------------------------CLUBBING----------------------------------------')
-        user.clubbing(id_no)
+        # print('-------------------------------------------CLUBBING----------------------------------------')
+        # user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
         user.customer_segments(id_no)
 
