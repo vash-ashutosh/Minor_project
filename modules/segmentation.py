@@ -26,7 +26,6 @@ class segmentation():
         self.sales = df
         self.preprocess()
         self.plot()
-        self.processed_data = None
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
