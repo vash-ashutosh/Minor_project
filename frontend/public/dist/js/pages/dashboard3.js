@@ -1,13 +1,14 @@
 function getdata(){
   var xmlhttp = new XMLHttpRequest();
-  var url = "http://127.0.0.1:5000/show_data?UserID=2";
+  var url = "http://127.0.0.1:5000/show_data";
   xmlhttp.open("GET",url,false);
   xmlhttp.send();
   return JSON.parse(xmlhttp.responseText);
 
 }
 
-
+var respdata = getdata()
+console.log(respdata)
 $(function () {
   'use strict'
 
@@ -78,50 +79,7 @@ $(function () {
     }
   })
 
-  var $visitorsChart = $('#visitors-chart')
-  var visitorsChart  = new Chart($visitorsChart, {
-    data   : {
-      labels  : ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
-      
-      datasets : getdata()
-    },
-    options: {
-      maintainAspectRatio: false,
-      tooltips           : {
-        mode     : mode,
-        intersect: intersect
-      },
-      hover              : {
-        mode     : mode,
-        intersect: intersect
-      },
-      legend             : {
-        display: false
-      },
-      scales             : {
-        yAxes: [{
-          // display: false,
-          gridLines: {
-            display      : true,
-            lineWidth    : '4px',
-            color        : 'rgba(0, 0, 0, .2)',
-            zeroLineColor: 'transparent'
-          },
-          ticks    : $.extend({
-            beginAtZero : true,
-            suggestedMax: 200
-          }, ticksStyle)
-        }],
-        xAxes: [{
-          display  : true,
-          gridLines: {
-            display: false
-          },
-          ticks    : ticksStyle
-        }]
-      }
-    }
-  })
+  
 
 //Pie chart for country wise price
 var $coutrywiseprice = $('#cwprice-chart')
@@ -167,9 +125,11 @@ var $visitorsChart = $('#AmansLine1')
   var visitorsChart  = new Chart($visitorsChart, {
     type:'line',
     data   : {
-      labels  : ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
+      labels  : respdata.months.map(String) ,
       
-      datasets : getdata()
+      datasets : [{
+        data:respdata.invoice_counts
+      }]
     },
     options: {
       maintainAspectRatio: false,
@@ -248,6 +208,5 @@ var coutrywiseprice  = new Chart($coutrywiseprice, {
 })
 
 })
-
 
 
