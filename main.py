@@ -85,8 +85,8 @@ class  Retailor():
        
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        transactions = pd.read_sql_query('select * from transactions_'+str(id_no), con)
-        db_updater().generate_sales(con, cursorObj, transactions, id_no)
+        # transactions = pd.read_sql_query('select * from transactions_'+str(id_no), con)
+        # db_updater().generate_sales(con, cursorObj, transactions, id_no)
 
 
         ## need to add generate sales function as new everytime sales table will be generated as new addition of transactions wont add anything to sales table
@@ -143,7 +143,8 @@ class  Retailor():
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         con.commit()
         con.close()
-        user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
+        # user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
+        user_map = self.seg.get_customer_segments(df)
 
         # for i in user_map:
         #     print(i, len(user_map[i][0]),  user_map[i][1])
@@ -153,7 +154,8 @@ class  Retailor():
 
 
 
-        return user_map, sales_map, data_of_usermap, data_of_sales_map
+        # return user_map, sales_map, data_of_usermap, data_of_sales_map
+        return user_map
         
 
 
@@ -427,7 +429,8 @@ if __name__ == '__main__':
         print('-------------------------------------------CLUBBING----------------------------------------')
         user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        # user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        user_map = user.customer_segments(id_no)
         
         # for i in user_map:
         #     print(i)
