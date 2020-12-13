@@ -172,7 +172,7 @@ export default function Content() {
                 </div>
               </div>
               {/* /.card */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <h3 className="card-title">Products</h3>
                   <div className="card-tools">
@@ -291,7 +291,7 @@ export default function Content() {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
               {/* /.card */}
             </div>
             {/* /.col-md-6 */}
@@ -401,7 +401,7 @@ export default function Content() {
                 </div>
               </div>
               {/* /.card */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <h3 className="card-title">Online Store Overview</h3>
                   <div className="card-tools">
@@ -426,7 +426,7 @@ export default function Content() {
                       <span className="text-muted">CONVERSION RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                   <div className="d-flex justify-content-between align-items-center border-bottom mb-3">
                     <p className="text-warning text-xl">
                       <i className="ion ion-ios-cart-outline" />
@@ -439,7 +439,7 @@ export default function Content() {
                       <span className="text-muted">SALES RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                   <div className="d-flex justify-content-between align-items-center mb-0">
                     <p className="text-danger text-xl">
                       <i className="ion ion-ios-people-outline" />
@@ -452,13 +452,13 @@ export default function Content() {
                       <span className="text-muted">REGISTRATION RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                 </div>
-              </div>
+              </div> */}
             </div>
-            {/* /.col-md-6 */}
+            
           </div>
-          {/* /.row */}
+          
         </div>
         {/* /.container-fluid */}
       </div>

@@ -136,7 +136,12 @@ var forcastchart  = new Chart($forcastchart, {
           display      : true,
           lineWidth    : '4px',
           color        : 'rgba(0, 0, 0, .2)',
-          zeroLineColor: 'transparent'
+          zeroLineColor: 'transparent',
+          
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Total Sales'
         },
         ticks    : $.extend({
           beginAtZero : true,
@@ -147,7 +152,10 @@ var forcastchart  = new Chart($forcastchart, {
         display  : true,
         gridLines: {
           display: false
-        },
+          },
+        scaleLabel: {
+          display: true,
+          labelString: 'Days'},
         ticks    : ticksStyle
       }]
     }
@@ -199,7 +207,11 @@ var $invoiceChart = $('#Invoicechart')
       },
       scales             : {
         yAxes: [{
-          // display: false,
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Invoice Count'
+          },
           gridLines: {
             display      : true,
             lineWidth    : '4px',
@@ -213,6 +225,10 @@ var $invoiceChart = $('#Invoicechart')
         }],
         xAxes: [{
           display  : true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Months Number'
+          },
           gridLines: {
             display: false
           },
@@ -236,7 +252,23 @@ var $weeklysalesprice  = new Chart($weeklysalesprice, {
   ]
   },
   options: {
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Weekdays'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Total Sales'
+        }
+      }]
+    }
     
   }
 })
@@ -255,7 +287,23 @@ var $hourlysales  = new Chart($hourlysales, {
   ]
   },
   options: {
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'hours'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Total Sales'
+        }
+      }]
+    }
     
   }
 })
@@ -287,14 +335,30 @@ var $hourlysales  = new Chart($hourlysales, {
     labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
     datasets : [
       {
-          // label:'Segmentation chart',
+          label:['Segments',],
           data:[customerdata["Lost"][1],customerdata["Potential loyalist"][1],customerdata["At risk"][1],customerdata["Promising"][1],customerdata["Loyal customers"][1],customerdata["About to sleep"][1],customerdata["Needing attention"][1],customerdata["Cant loose them"][1],customerdata["New customers"][1]],
           backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#C0CC4F','#C0CC4F']
       }
   ]
   },
   options: {
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Classes'
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Count'
+        }
+      }]
+    }
     
   }
 })
