@@ -129,9 +129,12 @@ class  Retailor():
         # print(rows[0])
         
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
-        self.seg.get_customer_segments(df)
         con.commit()
         con.close()
+        user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
+
+        return user_map, sales_map, data_of_usermap, data_of_sales_map
+        
 
 
     #############################################################
@@ -404,8 +407,14 @@ if __name__ == '__main__':
         # print('-------------------------------------------CLUBBING----------------------------------------')
         # user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        user.customer_segments(id_no)
-
+        user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        
+        # for i in user_map:
+        #     print(i)
+        # for i in sales_map:
+        #     print(i)
+        # print(data_of_usermap)
+        # print(data_of_sales_map)
 
     else:
         print('Customer')

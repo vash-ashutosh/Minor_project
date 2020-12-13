@@ -89,8 +89,8 @@ class segmentation():
             mp2[i][0] = list(mp2[i][0])
             mp2[i][1] = len(mp2[i][0])
 
-        for i in mp2:
-            print(i, len(mp2[i][0]), mp2[i][1])
+        # for i in mp2:
+        #     print(i, len(mp2[i][0]), mp2[i][1])
         
         # cluster1_data is for mp2 
         # cluster2_data i for mp
@@ -214,8 +214,9 @@ class segmentation():
         
     
     def plot(self):
-        self.plot_sales_plot()
-        self.plot_customer_plot()
+        # self.plot_sales_plot()
+        # self.plot_customer_plot()
+        pass
        
 
     def plot_sales_plot(self):
