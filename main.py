@@ -121,7 +121,8 @@ class  Retailor():
         print(df.head())
         predictions,possible_min_sales,possible_max_sales,previous_sales = forecasting(df)
 
-        return predictions,possible_min_sales,possible_max_sales,previous_sales
+        # return predictions,possible_min_sales,possible_max_sales,previous_sales
+        return predictions,previous_sales
 
 
 
@@ -157,7 +158,7 @@ class  Retailor():
         con.commit()
         con.close()
         # user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
-        user_map =  self.seg.get_customer_segments(df)
+        user_map = self.seg.get_customer_segments(df)
 
         # for i in user_map:
         #     print(i, len(user_map[i][0]),  user_map[i][1])
@@ -430,11 +431,11 @@ if __name__ == '__main__':
     if type_of_user=='retailer':
         print('-------------------------------------------FORECAST----------------------------------------')
 
-        predictions,possible_min_sales,possible_max_sales,previous_sales = user.timeseries(id_no)
+        predictions,previous_sales = user.timeseries(id_no)
         print('prediction in main.py : ',predictions)
 
-        print('MAx sales : ',possible_max_sales)
-        print('min sales : ',possible_min_sales)
+        # print('MAx sales : ',possible_max_sales)
+        # print('min sales : ',possible_min_sales)
         print('-------------------------------------------INSIGHTS----------------------------------------')
 
         user.insights(id_no)
@@ -445,8 +446,6 @@ if __name__ == '__main__':
         # user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
         user_map = user.customer_segments(id_no)
         
-
-
         # for i in user_map:
         #     print(i)
         # for i in sales_map:
