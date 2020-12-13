@@ -30,8 +30,9 @@ class segmentation():
         # print(self.processed_data['new_label'][:10])
         # print(self.processed_data['sales_label'][:10])
         # print(self.processed_data['comms_label'][:10])
-    
-        return self.get_formatted_data(self.processed_data)
+        print('customer segments before get formatted data')
+        mp = self.get_formatted_data(self.processed_data)
+        return mp
 
     def get_formatted_data(self, df):
         """
@@ -67,6 +68,8 @@ class segmentation():
 
         # for i in mp:
         #     print(i, len(mp[i][0]), mp[i][1])
+
+        # print(mp)
         
         return mp
 
@@ -187,8 +190,9 @@ class segmentation():
         
     
     def plot(self):
-        self.plot_sales_plot()
-        self.plot_customer_plot()
+        # self.plot_sales_plot()
+        # self.plot_customer_plot()
+        pass
        
 
     def plot_sales_plot(self):
