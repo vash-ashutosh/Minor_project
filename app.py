@@ -163,8 +163,8 @@ def customer_data():
 
 @app.route('/forcast')
 def forcast():
-    predictions,possible_min_sales,possible_max_sales,previous_sales = user.timeseries(user.user_id)
-    data = {'predictions':predictions,'possible_min_sales':possible_min_sales,'possible_max_sales':possible_max_sales,'previous_sales':previous_sales}
+    predictions,previous_sales = user.timeseries(user.user_id)
+    data = {'predictions':predictions,'previous_sales':previous_sales}
     return(json.dumps(data))
 
 
