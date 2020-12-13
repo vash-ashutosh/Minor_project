@@ -69,7 +69,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Weekly Sales</h3>
+                    <h3 className="card-title">Customer Segmentation</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ export default function Content() {
                   <div className="d-flex">
                     <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
-                      <span>Customer Count</span>
+                      <span>Customer Segmentation</span>
                     </p>
                     <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
@@ -88,7 +88,7 @@ export default function Content() {
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="AmansBar1-chart" height={200} />
+                    <canvas id="cust-segment" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">

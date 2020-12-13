@@ -6,7 +6,16 @@ function getdata(){
   return JSON.parse(xmlhttp.responseText);
 
 }
+function custdata(){
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://127.0.0.1:5000/customer_data";
+  xmlhttp.open("GET",url,false);
+  xmlhttp.send();
+  return JSON.parse(xmlhttp.responseText);
 
+}
+
+var customerdata = custdata()
 var respdata = getdata()
 console.log(respdata)
 $(function () {
@@ -168,7 +177,7 @@ var $invoiceChart = $('#Invoicechart')
       }
     }
   })
-  //Amans bar-1
+  //Weekly sales
 var $weeklysalesprice = $('#Weekly-sales')
 var $weeklysalesprice  = new Chart($weeklysalesprice, {
   type   : 'bar',
@@ -187,7 +196,28 @@ var $weeklysalesprice  = new Chart($weeklysalesprice, {
     
   }
 })
+
+//Customer Segmentation
+  var $custsegment = $('#cust-segment')
+  var $custsegment  = new Chart($custsegment, {
+    type   : 'bar',
+    data   : {
+      labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
+      datasets : [
+        {
+            label:'Customer Categories',
+            data: [customerdata.Lost[1],customerdata.Potential_layalist[1],customerdata.At_risk[1],customerdata.Promising[1],customerdata.Loyal_customers[1],customerdata.About_to_sleep[1],customerdata.Need_attention[1],customerdata.Cant_loose_them,customerdata.New_customers[1]],
+            backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#3FFA6','#1FCC46']
+        }
+    ]
+    },
+    options: {
+      maintainAspectRatio: false
+      
+    }
+  })
   
+
 var $hourlysales = $('#hourly-sales')
 var $hourlysales  = new Chart($hourlysales, {
   type   : 'bar',
