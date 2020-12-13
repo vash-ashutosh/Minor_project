@@ -52,7 +52,7 @@ class Apriori():
         basket_sets.drop('POSTAGE', inplace=True, axis=1)
         
         #Using Association
-        frequent_itemsets = apriori(basket_sets, min_support=0.1, use_colnames=True)
+        frequent_itemsets = apriori(basket_sets, min_support=0.07, use_colnames=True,verbose=1, low_memory=True)
         print("Apriori done")
         # print(type(frequent_itemsets))
         if frequent_itemsets.empty == False:
