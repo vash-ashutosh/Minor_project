@@ -67,8 +67,21 @@ class  Retailor():
             data = self.apriori.club(df)
             if data.empty:
                 print("No rules generated")
-        
-        print(data.head())
+
+            # print(data.columns)
+            # data = data[['antecedents', 'consequents', 'confidence']]
+            # data = pd.DataFrame(data)
+ 
+            data = data.sort_values(by=["confidence"], ascending=False)
+
+            data = data[:10][:]
+            data["antecedents"] = data["antecedents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
+            data["consequents"] = data["consequents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
+            
+            antecedents, consequents, confidence = list(data['antecedents']), list(data['consequents']), list(data['confidence'])
+            return antecedents, consequents, confidence
+            
+            
         
 
         # pass
@@ -85,8 +98,8 @@ class  Retailor():
        
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        transactions = pd.read_sql_query('select * from transactions_'+str(id_no), con)
-        db_updater().generate_sales(con, cursorObj, transactions, id_no)
+        # transactions = pd.read_sql_query('select * from transactions_'+str(id_no), con)
+        # db_updater().generate_sales(con, cursorObj, transactions, id_no)
 
 
         ## need to add generate sales function as new everytime sales table will be generated as new addition of transactions wont add anything to sales table
@@ -143,7 +156,8 @@ class  Retailor():
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         con.commit()
         con.close()
-        user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
+        # user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
+        user_map =  self.seg.get_customer_segments(df)
 
         # for i in user_map:
         #     print(i, len(user_map[i][0]),  user_map[i][1])
@@ -151,9 +165,9 @@ class  Retailor():
         # for i in sales_map:
         #     print(i, len(sales_map[i][0]),  sales_map[i][1])
 
-
-
-        return user_map, sales_map, data_of_usermap, data_of_sales_map
+        # return user_map, sales_map, data_of_usermap, data_of_sales_map
+        
+        return user_map
         
 
 
@@ -385,7 +399,7 @@ if __name__ == '__main__':
         loggedIn = False
 
 
-    # ##user registration
+    ##user registration
     # print('-------------------------------------------REGISTER----------------------------------------')
 
     # print('Enter the registration details : ')
@@ -401,6 +415,7 @@ if __name__ == '__main__':
 
     # print(reply)
 
+    # exit()
 
     #forecasting
 
@@ -427,12 +442,15 @@ if __name__ == '__main__':
         print('-------------------------------------------CLUBBING----------------------------------------')
         user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        # user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        user_map = user.customer_segments(id_no)
         
-        for i in user_map:
-            print(i)
-        for i in sales_map:
-            print(i)
+
+
+        # for i in user_map:
+        #     print(i)
+        # for i in sales_map:
+        #     print(i)
         # print(data_of_usermap)
         # print(data_of_sales_map)
 
