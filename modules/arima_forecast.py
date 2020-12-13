@@ -33,16 +33,50 @@ def forecasting(filename):
 
   # predictions_ARIMA = np.exp(predictions_ARIMA_log)
   length = len(dataset)
-  results_ARIMA.plot_predict(length-100,length+5)
-  plt.show()
-  x = results_ARIMA.forecast(steps=5)
+  results_ARIMA.plot_predict(length-80,length+5)
+  plt.savefig('forecast.png')
+  # plt.show()
+
+  steps_ahead = 5
+
+  previous_sales = dataset[-80:]
+  previous_sales = list(previous_sales['Price'])
+
+  x = results_ARIMA.forecast(steps=steps_ahead)
+  # for i in range(stepsAhead):
+  #   series.loc[len(series)] = forecastArray[0][i]\
+
+  print('----------------results-----------------------')
+  print(results_ARIMA)
+
   print(x[0])
   print(x[2])
   plt.plot(x[0])
   plt.plot(x[1])
 
+  min_max_sales = x[2]
 
-  plt.show()
+
+  possible_min_sales = []
+  possible_max_sales = []
+
+  for i in range(steps_ahead):
+    possible_min_sales.append(min_max_sales[i][0])
+    possible_max_sales.append(min_max_sales[i][1])
+
+
+  # plt.show()
+
+  print(possible_min_sales)
+  print(possible_max_sales)
+
+  print(previous_sales)
+
+
+
+
+
+  return list(x[0]),possible_min_sales,possible_max_sales,previous_sales
 
 
 # forecasting("date_price_sales.csv")

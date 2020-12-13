@@ -25,7 +25,53 @@ class segmentation():
     def get_customer_segments(self,df):
         self.sales = df
         self.preprocess()
-        self.plot()
+        # self.plot()
+        # print(self.processed_data['new_label'].unique())
+        # print(self.processed_data['new_label'][:10])
+        # print(self.processed_data['sales_label'][:10])
+        # print(self.processed_data['comms_label'][:10])
+        print('customer segments before get formatted data')
+        mp = self.get_formatted_data(self.processed_data)
+        return mp
+
+    def get_formatted_data(self, df):
+        """
+        generated map as required by frontend only Customer ID, sales_label, new_label
+
+        structure of map
+        {
+            'loyal customer' : [ ('set of cutomer IDs' ), 'count'],
+            'lost'           : [  (                   ),        ]         
+        }
+        """
+        
+        df = df[['Customer ID','new_label']]
+        
+        mp = {
+            'Lost'                       :[set(), 0],
+            'Potential loyalist'         :[set(), 0],
+            'At risk'                    :[set(), 0],
+            'Promising'                  :[set(), 0],
+            'Loyal customers'            :[set(), 0],
+            'About to sleep'             :[set(), 0],
+            'Needing attention'          :[set(), 0],
+            'Cant loose them'            :[set(), 0],
+            'New customers'              :[set(), 0]
+        } 
+
+        for i in range(len(df)):
+            mp[df['new_label'][i]][0].add(df['Customer ID'][i])
+
+        for i in mp:
+            mp[i][0] = list(mp[i][0])
+            mp[i][1] = len(mp[i][0])
+
+        # for i in mp:
+        #     print(i, len(mp[i][0]), mp[i][1])
+
+        # print(mp)
+        
+        return mp
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
@@ -144,8 +190,9 @@ class segmentation():
         
     
     def plot(self):
-        self.plot_sales_plot()
-        self.plot_customer_plot()
+        # self.plot_sales_plot()
+        # self.plot_customer_plot()
+        pass
        
 
     def plot_sales_plot(self):

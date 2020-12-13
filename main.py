@@ -1,12 +1,11 @@
-from modules.apriori import Apriori
-#    apriori.py will contain a class Apriori // similarly with other imported files
-
-from modules.segmentation import segmentation
-
-from modules.insights import insight_details,get_months_years
-from modules.arima_forecast import forecasting
 import sqlite3
 import pandas as pd
+
+from modules.apriori import Apriori
+from modules.segmentation import segmentation
+from modules.insights import insight_details,get_months_years
+from modules.arima_forecast import forecasting
+from modules.db_updater import db_updater
 
 # it will contain only retailor specific functions
 class  Retailor():
@@ -14,6 +13,7 @@ class  Retailor():
     user_id = 0
     name = 'default'
     user_type = 'customer'
+    
     def __init__(self, seg=segmentation(), Apriori = Apriori() ):
         """
             loads respective class's object in Retailor class
@@ -21,7 +21,6 @@ class  Retailor():
         # self.plotting = plotting_sample()
         self.seg = seg
         self.apriori = Apriori
-        self.database = sqlite3.connect('./database/new_data.db')
         
 
 
@@ -39,8 +38,11 @@ class  Retailor():
         # print(data.head())
 
         filename = ""
+        
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
+
         cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
@@ -56,7 +58,7 @@ class  Retailor():
         # print(rows[0])
 
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
-
+        con.close()
         print(df.head())
         data = self.apriori.club(df)
         print(data.head())
@@ -71,8 +73,11 @@ class  Retailor():
     def timeseries(self,id_no):
 
         filename = ""
+       
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
+        ## need to add generate sales function as new everytime sales table will be generated as new addition of transactions wont add anything to sales table
         cursorObj.execute('SELECT Sales_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
@@ -87,11 +92,13 @@ class  Retailor():
         print(rows[0])
 
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
-
+        con.close()
         print(df.head())
+        predictions,possible_min_sales,possible_max_sales,previous_sales = forecasting(df)
+
+        return predictions,possible_min_sales,possible_max_sales,previous_sales
 
 
-        forecasting(df)
 
 
 
@@ -106,6 +113,7 @@ class  Retailor():
         filename = ""
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
         cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
@@ -119,18 +127,24 @@ class  Retailor():
         # rows = cursorObj.fetchall()
 
         # print(rows[0])
-
+        
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
-        self.seg.get_customer_segments(df)
+        con.commit()
+        con.close()
+        user_map =  self.seg.get_customer_segments(df)
 
+        return user_map
+        
 
 
     #############################################################
     #INSIGHTS
 
     def insights(self,id_no):
+      
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
         cursorObj.execute('SELECT Transactions_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
 
@@ -168,38 +182,40 @@ class  Retailor():
         print('-----------------------hourly_sales-----------------------')
         print(hourly_sales['Hour'],hourly_sales['TotalPrice'])
 
-
+        con.close()
         return list(months),list(years),list(invoice_counts),list(customer_counts),list(country_best['Country']),list(country_best['TotalPrice']),list(country_worst['Country']),list(country_worst['TotalPrice']),list(weekly_sales['WeekDay']),list(weekly_sales['TotalPrice']),list(hourly_sales['Hour']),list(hourly_sales['TotalPrice'])
 
 
     #################################################################
     #LOGIN
     def login(self,email,password):
+        
         type_of_user = ""
     
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
         cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
         rows = cursorObj.fetchall()
 
-        
-
         for row in rows:
-
+            
             details = row
 
+        con.close()
         return details
 
 
     ##############################################################
     #REGISTER
-    def register(self,name,email,password,type_of_user,phone):
+    def register(self,name,email,password,type_of_user,phone,transactions_file,store_file):
         db_name = ""
         db_phone = ""
         reply = "created"
 
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
+        
         cursorObj.execute('SELECT Name FROM registration_data where Email = ?',(email,))
         rows = cursorObj.fetchall()
         
@@ -270,9 +286,13 @@ class  Retailor():
                 sql = "CREATE TABLE "+ "transactions_"+str(id_no) +" (Invoice TEXT, StockCode TEXT, Description TEXT, Quantity INTEGER, InvoiceDate TIMESTAMP, Price REAL, 'Customer ID' REAL, Country TEXT);"
                 cursorObj.execute(sql)
 
-
-
                 print('successfully inserted into retailer_data')
+
+                df = pd.read_csv(store_file)
+                df2 = pd.read_csv(transactions_file)
+
+                db = db_updater()
+                db.upload_csv(con, cursorObj, id_no, df, df2)
 
          
             
@@ -289,6 +309,7 @@ class  Retailor():
             reply = 'user account already exist'
             
         con.commit()
+        con.close()
 
         return reply
 
@@ -307,6 +328,7 @@ class  Retailor():
 if __name__ == '__main__':
     
     ##class object
+    
     user = Retailor()
 
     # ##login status
@@ -326,7 +348,7 @@ if __name__ == '__main__':
     
     
     
-    ##user login
+    #user login
     print('-------------------------------------------LOGIN----------------------------------------')
     print('enter your details : ')
     email = input()
@@ -355,12 +377,12 @@ if __name__ == '__main__':
 
 
 
-    # reply = user.register(name,email,password,type_of_user,phone)
+    # reply = user.register(name,email,password,type_of_user,phone,'sample_csv/new_retailer.csv','sample_csv/new_retailer_store.csv')
 
     # print(reply)
 
 
-    # forecasting
+    #forecasting
 
     name = details[1]
     print(details)
@@ -373,15 +395,21 @@ if __name__ == '__main__':
     if type_of_user=='retailer':
         print('-------------------------------------------FORECAST----------------------------------------')
 
-        user.timeseries(id_no)
+        predictions,possible_min_sales,possible_max_sales,previous_sales = user.timeseries(id_no)
+        print('prediction in main.py : ',predictions)
+
+        print('MAx sales : ',possible_max_sales)
+        print('min sales : ',possible_min_sales)
         print('-------------------------------------------INSIGHTS----------------------------------------')
 
         user.insights(id_no)
 
-        print('-------------------------------------------CLUBBING----------------------------------------')
-        user.clubbing(id_no)
+        # print('-------------------------------------------CLUBBING----------------------------------------')
+        # user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        user.customer_segments(id_no)
+        map_users = user.customer_segments(id_no)
+        print('in main.py')
+        print(map_users)
 
 
     else:
