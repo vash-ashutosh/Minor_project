@@ -79,6 +79,7 @@ class  Retailor():
             data["consequents"] = data["consequents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
             
             antecedents, consequents, confidence = list(data['antecedents']), list(data['consequents']), list(data['confidence'])
+            print(antecedents, consequents, confidence)
             return antecedents, consequents, confidence
             
             
