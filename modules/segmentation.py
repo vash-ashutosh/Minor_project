@@ -49,14 +49,14 @@ class segmentation():
         
         mp = {
             'Lost'                       :[set(), 0],
-            'Potential loyalist'         :[set(), 0],
-            'At risk'                    :[set(), 0],
+            'Potential_loyalist'         :[set(), 0],
+            'At_risk'                    :[set(), 0],
             'Promising'                  :[set(), 0],
-            'Loyal customers'            :[set(), 0],
-            'About to sleep'             :[set(), 0],
-            'Needing attention'          :[set(), 0],
-            'Cant loose them'            :[set(), 0],
-            'New customers'              :[set(), 0]
+            'Loyal_customers'            :[set(), 0],
+            'About_to_sleep'             :[set(), 0],
+            'Needing_attention'          :[set(), 0],
+            'Cant_loose_them'            :[set(), 0],
+            'New_customers'              :[set(), 0]
         } 
 
         for i in range(len(df)):
