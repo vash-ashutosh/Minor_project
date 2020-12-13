@@ -287,7 +287,7 @@ var $hourlysales  = new Chart($hourlysales, {
     labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
     datasets : [
       {
-          label:'Segmentation chart',
+          // label:'Segmentation chart',
           data:[customerdata["Lost"][1],customerdata["Potential loyalist"][1],customerdata["At risk"][1],customerdata["Promising"][1],customerdata["Loyal customers"][1],customerdata["About to sleep"][1],customerdata["Needing attention"][1],customerdata["Cant loose them"][1],customerdata["New customers"][1]],
           backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#C0CC4F','#C0CC4F']
       }

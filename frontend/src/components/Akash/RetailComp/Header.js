@@ -15,11 +15,11 @@ export default function Header() {
             Home
           </a>
         </li>
-        <li className="nav-item d-none d-sm-inline-block">
+        {/* <li className="nav-item d-none d-sm-inline-block">
           <a href="#" className="nav-link">
             Contact
           </a>
-        </li>
+        </li> */}
         <li className="nav-item d-none d-sm-inline-block">
           <a href="http://localhost:3000/" className="nav-link">
             Logout
