@@ -90,7 +90,8 @@ class segmentation():
         # cluster1_data is for mp2 
         # cluster2_data i for mp
         #  
-        return mp,mp2,self.cluster2_data,self.cluster1_data
+        # return mp,mp2,self.cluster2_data,self.cluster1_data
+        return mp
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
