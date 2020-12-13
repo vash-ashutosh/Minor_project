@@ -30,10 +30,9 @@ class segmentation():
         # print(self.processed_data['new_label'][:10])
         # print(self.processed_data['sales_label'][:10])
         # print(self.processed_data['comms_label'][:10])
-        print('customer segments before get formatted data')
-        mp = self.get_formatted_data(self.processed_data)
-        return mp
-
+    
+        return self.get_formatted_data(self.processed_data)
+    
     def get_formatted_data(self, df):
         """
         generated map as required by frontend only Customer ID, sales_label, new_label
@@ -45,33 +44,42 @@ class segmentation():
         }
         """
         
-        df = df[['Customer ID','new_label']]
+        df = df[['Customer ID','new_label','sales_label']]
         
-        mp = {
-            'Lost'                       :[set(), 0],
-            'Potential_loyalist'         :[set(), 0],
-            'At_risk'                    :[set(), 0],
-            'Promising'                  :[set(), 0],
-            'Loyal_customers'            :[set(), 0],
-            'About_to_sleep'             :[set(), 0],
-            'Needing_attention'          :[set(), 0],
-            'Cant_loose_them'            :[set(), 0],
-            'New_customers'              :[set(), 0]
-        } 
+
+
+        mp = dict()
+        new_label = df['new_label'].unique()
+
+        mp2 = dict()
+        sales_label = df['sales_label'].unique()
+
+        for i in new_label:
+            mp[i] = [ set(), 0]
+
+        for i in sales_label:
+            mp2[i] = [ set(), 0]
+
 
         for i in range(len(df)):
             mp[df['new_label'][i]][0].add(df['Customer ID'][i])
+            mp2[df['sales_label'][i]][0].add(df['Customer ID'][i])
 
         for i in mp:
             mp[i][0] = list(mp[i][0])
             mp[i][1] = len(mp[i][0])
-
-        # for i in mp:
-        #     print(i, len(mp[i][0]), mp[i][1])
-
-        # print(mp)
         
-        return mp
+        for i in mp2:
+            mp2[i][0] = list(mp2[i][0])
+            mp2[i][1] = len(mp2[i][0])
+
+        # for i in mp2:
+        #     print(i, len(mp2[i][0]), mp2[i][1])
+        
+        # cluster1_data is for mp2 
+        # cluster2_data i for mp
+        #  
+        return mp,mp2,self.cluster2_data,self.cluster1_data
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')
