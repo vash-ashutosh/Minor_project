@@ -368,7 +368,7 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Customers per Month</h3>
+                    <h3 className="card-title">Sales forcast</h3>
                     <a href="http://localhost:3000/Offers">View Report</a>
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export default function Content() {
                   </div>
                   {/* /Pie chart*/}
                   <div className="position-relative mb-4">
-                    <canvas id="cwprice-chart" height={400} />
+                    <canvas id="forcast-chart" height={400} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">

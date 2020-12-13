@@ -15,9 +15,19 @@ function custdata(){
 
 }
 
+function forcastdata(){
+  var xmlhttp = new XMLHttpRequest();
+  var url = "http://127.0.0.1:5000/forcast";
+  xmlhttp.open("GET",url,false);
+  xmlhttp.send();
+  return JSON.parse(xmlhttp.responseText);
+
+}
+
 var customerdata = custdata()
 var respdata = getdata()
-console.log(customerdata)
+var forcast = forcastdata()
+console.log(forcast)
 $(function () {
   'use strict'
 
@@ -91,22 +101,56 @@ $(function () {
   
 
 //Pie chart for country wise price
-var $coutrywiseprice = $('#cwprice-chart')
-var coutrywiseprice  = new Chart($coutrywiseprice, {
-  type   : 'radar',
+var $forcastchart = $('#forcast-chart')
+var forcastchart  = new Chart($forcastchart, {
+  type:'line',
   data   : {
-    labels  : ['Australia','Austria','Bahrain','Belgium','Brazil','Canada','Channel Islands','Cyprus','Czech Republic','Denmark','Eire','European community','Finland','France','Germany','Greece','Iceland','Israel','Italy','Japan'],
-    datasets : [
-      {
-          label:'Country wise sales',
-          data:[169968.110,23613.010,1354.370,65753.420,1411.870,4883.040,44996.760,24980.130,826.740,69862.190,621631.110,1300.250,29925.540,355257.470,431262.461,19096.190,5633.320,10421.090,32550.420,47138.390],
-          backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#C0CC4F','#C0CC4F','#541BF3','#AF3DD4','#B99EC1','#91D6D6','#6BA71D','#656375','#7F6EE0','#03D22C','#037F1B','#B7EB48','#DC6D2D']
-      }
-  ]
+    labels  : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85],
+    
+    
+    datasets : [{
+      data:forcast.previous_sales.concat([0,0,0,0,0]),
+      
+    },{
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0].concat(forcast.predictions),
+      backgroundColor:['#424ef5']
+    }]
   },
   options: {
-    maintainAspectRatio: false
-    
+    maintainAspectRatio: false,
+    tooltips           : {
+      mode     : mode,
+      intersect: intersect
+    },
+    hover              : {
+      mode     : mode,
+      intersect: intersect
+    },
+    legend             : {
+      display: false
+    },
+    scales             : {
+      yAxes: [{
+        // display: false,
+        gridLines: {
+          display      : true,
+          lineWidth    : '4px',
+          color        : 'rgba(0, 0, 0, .2)',
+          zeroLineColor: 'transparent'
+        },
+        ticks    : $.extend({
+          beginAtZero : true,
+          suggestedMax: 200
+        }, ticksStyle)
+      }],
+      xAxes: [{
+        display  : true,
+        gridLines: {
+          display: false
+        },
+        ticks    : ticksStyle
+      }]
+    }
   }
 })
 
