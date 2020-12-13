@@ -46,17 +46,6 @@ class segmentation():
         
         df = df[['Customer ID','new_label','sales_label']]
         
-        # mp = {
-        #     'Lost'                       :[set(), 0],
-        #     'Potential loyalist'         :[set(), 0],
-        #     'At risk'                    :[set(), 0],
-        #     'Promising'                  :[set(), 0],
-        #     'Loyal customers'            :[set(), 0],
-        #     'About to sleep'             :[set(), 0],
-        #     'Needing attention'          :[set(), 0],
-        #     'Cant loose them'            :[set(), 0],
-        #     'New customers'              :[set(), 0]
-        # } 
 
 
         mp = dict()
@@ -92,7 +81,6 @@ class segmentation():
         #  
         # return mp,mp2,self.cluster2_data,self.cluster1_data
         return mp
-
 
     def preprocess(self):
         # self.sales['InvoiceDate'] = self.sales['InvoiceDate'].astype('string')

@@ -34,42 +34,42 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Online Store Visitors</h3>
-                    <a href="javascript:void(0);">View Report</a>
+                    <h3 className="card-title">Customer Segmentation</h3>
+                    {/* <a href="javascript:void(0);">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
                   <div className="d-flex">
-                    <p className="d-flex flex-column">
+                    {/* <p className="d-flex flex-column">
                       <span className="text-bold text-lg">0</span>
                       <span>Visitors Over Time</span>
-                    </p>
-                    <p className="ml-auto d-flex flex-column text-right">
+                    </p> */}
+                    {/* <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
                         <i className="fas fa-arrow-up" /> 12.5%
                       </span>
                       <span className="text-muted">Since last week</span>
-                    </p>
+                    </p> */}
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="visitors-chart" height={200} />
+                    <canvas id="seg-chart" height={200} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This Week
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last Week
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/*Amans Bar graph 1 */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
+                    <h3 className="card-title">Weekly Sales</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ export default function Content() {
                   <div className="d-flex">
                     <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
-                      <span>Amans Graph 1</span>
+                      <span>Customer Count</span>
                     </p>
                     <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
@@ -87,8 +87,8 @@ export default function Content() {
                     </p>
                   </div>
                   {/* /.d-flex */}
-                  <div className="position-relative mb-4">
-                    <canvas id="AmansBar1-chart" height={200} />
+                  {/* <div className="position-relative mb-4">
+                    <canvas id="Customer-seg" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
@@ -99,48 +99,48 @@ export default function Content() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */} 
               {/*Invoice per month */}
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
-                    <a href="javascript:void(0);">View Report</a>
+                    <h3 className="card-title">Hourly Sales</h3>
+                    {/* <a href="javascript:void(0);">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
                   <div className="d-flex">
-                    <p className="d-flex flex-column">
+                    {/* <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
                       <span>Invoice per month</span>
-                    </p>
-                    <p className="ml-auto d-flex flex-column text-right">
+                    </p> */}
+                    {/* <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
                         <i className="fas fa-arrow-up" /> 33.1%
                       </span>
                       <span className="text-muted">Since last month</span>
-                    </p>
+                    </p> */}
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="Invoice" height={200} />
+                    <canvas id="hourly-sales" height={200} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This year
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last year
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* /Pie chart Card1*/}
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Country wise Price</h3>
-                    <a href="http://localhost:3000/Offers">View Report</a>
+                    <h3 className="card-title">Country wise best Price</h3>
+                    {/* <a href="http://localhost:3000/Offers">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
@@ -161,18 +161,18 @@ export default function Content() {
                   <div className="position-relative mb-4">
                     <canvas id="coutrywiseprice-chart" height={400} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This Week
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last Week
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* /.card */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <h3 className="card-title">Products</h3>
                   <div className="card-tools">
@@ -291,7 +291,7 @@ export default function Content() {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
               {/* /.card */}
             </div>
             {/* /.col-md-6 */}
@@ -299,77 +299,77 @@ export default function Content() {
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
-                    <a href="javascript:void(0);">View Report</a>
+                    <h3 className="card-title">Weekly Sales</h3>
+                    {/* <a href="javascript:void(0);">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
                   <div className="d-flex">
-                    <p className="d-flex flex-column">
+                    {/* <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
                       <span>Amans Graph 0</span>
-                    </p>
-                    <p className="ml-auto d-flex flex-column text-right">
+                    </p> */}
+                    {/* <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
                         <i className="fas fa-arrow-up" /> 33.1%
                       </span>
                       <span className="text-muted">Since last month</span>
-                    </p>
+                    </p> */}
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="sales-chart" height={200} />
+                    <canvas id="Weekly-sales" height={200} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This year
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last year
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Sales</h3>
-                    <a href="javascript:void(0);">View Report</a>
+                    <h3 className="card-title">Invoice count per month</h3>
+                    {/* <a href="javascript:void(0);">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
                   <div className="d-flex">
-                    <p className="d-flex flex-column">
+                    {/* <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
                       <span>Amans Line 1</span>
-                    </p>
-                    <p className="ml-auto d-flex flex-column text-right">
+                    </p> */}
+                    {/* <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
                         <i className="fas fa-arrow-up" /> 33.1%
                       </span>
                       <span className="text-muted">Since last month</span>
-                    </p>
+                    </p> */}
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="AmansLine1" height={200} />
+                    <canvas id="Invoicechart" height={200} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This year
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last year
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* /Customers per month*/}
               <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Customers per Month</h3>
-                    <a href="http://localhost:3000/Offers">View Report</a>
+                    <h3 className="card-title">Sales forcast</h3>
+                    {/* <a href="http://localhost:3000/Offers">View Report</a> */}
                   </div>
                 </div>
                 <div className="card-body">
@@ -388,20 +388,20 @@ export default function Content() {
                   </div>
                   {/* /Pie chart*/}
                   <div className="position-relative mb-4">
-                    <canvas id="cwprice-chart" height={400} />
+                    <canvas id="forcast-chart" height={400} />
                   </div>
-                  <div className="d-flex flex-row justify-content-end">
+                  {/* <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
                       <i className="fas fa-square text-primary" /> This Week
                     </span>
                     <span>
                       <i className="fas fa-square text-gray" /> Last Week
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* /.card */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <h3 className="card-title">Online Store Overview</h3>
                   <div className="card-tools">
@@ -426,7 +426,7 @@ export default function Content() {
                       <span className="text-muted">CONVERSION RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                   <div className="d-flex justify-content-between align-items-center border-bottom mb-3">
                     <p className="text-warning text-xl">
                       <i className="ion ion-ios-cart-outline" />
@@ -439,7 +439,7 @@ export default function Content() {
                       <span className="text-muted">SALES RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                   <div className="d-flex justify-content-between align-items-center mb-0">
                     <p className="text-danger text-xl">
                       <i className="ion ion-ios-people-outline" />
@@ -452,13 +452,13 @@ export default function Content() {
                       <span className="text-muted">REGISTRATION RATE</span>
                     </p>
                   </div>
-                  {/* /.d-flex */}
+                  
                 </div>
-              </div>
+              </div> */}
             </div>
-            {/* /.col-md-6 */}
+            
           </div>
-          {/* /.row */}
+          
         </div>
         {/* /.container-fluid */}
       </div>

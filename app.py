@@ -4,18 +4,22 @@ import sqlite3
 import time
 import datetime
 import random
-
+import json
+import numpy
 from main import Retailor
 # import pandas as pdS
 
 app = Flask(__name__)
 
-
+def np_to_int(arr):
+  for num in arr:
+    num = int(num)
+  return arr
 
 
 # #checking and validating user id pass
 # def id_pass_check(email,pwd):
-# 	name = ""
+# 	name = ''
 	
 # 	con = sqlite3.connect('database/new_data.db')   #may need to change path of db
 # 	cursorObj = con.cursor()
@@ -29,9 +33,9 @@ app = Flask(__name__)
 # 	return name 
 
 # def registering(email,name,phone,password):
-# 	db_name = ""
-# 	db_phone = ""
-# 	reply = "created"
+# 	db_name = ''
+# 	db_phone = ''
+# 	reply = 'created'
 
 # 	con = sqlite3.connect('database/Our_data.db')
 # 	cursorObj = con.cursor()
@@ -79,14 +83,18 @@ app = Flask(__name__)
 
 
 user = Retailor()
-user_id = ''
-user_name = ''
-user_type = ''
+# user_id = ''
+# user_name = ''
+# user_type = ''
 
+
+def convert(o):
+    if isinstance(o, numpy.int64): return int(o)  
+    raise TypeError
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('index.html')
 
 @app.route('/register')
 def register_page():
@@ -117,10 +125,10 @@ def handle_data():
     email = request.form['email']
     pwd  = request.form['pass']
 
-    print("Email : {}   Pass : {}".format(email,pwd))
+    print('Email : {}   Pass : {}'.format(email,pwd))
 
     # string = id_pass_check(email,pwd)
-    # return "Welcome  : " +string
+    # return 'Welcome  : ' +string
     # error = None
     # if request.method == 'POST':
     #     if email == 'admin' or pwd == 'admin':
@@ -129,54 +137,43 @@ def handle_data():
     user.user_id = details[0]
     user.name = details[1]
     user.user_type = details[4]
+    print('User',user.user_id)
 
-    return render_template('home.html', mssg=user_id,name=user_name,type_of_user=user_type)
-
-
+    return jsonify("'Username':'{}','UserID':'{}".format(user.name,user.user_id))
 
 
 @app.route('/show_data')
 def show_data():
-	months,years,invoice_counts,customer_counts,country_best_count,Country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user.user_id)
+    months,years,invoice_counts,customer_counts,country_best_count,country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user.user_id)
+    data = {'months':months,'years':years,'invoice_counts':invoice_counts,'customer_counts':customer_counts,
+           'country_best_count':country_best_count,'country_best_price':country_best_price,'country_worst_count':country_worst_count,
+  'country_worst_price':country_worst_price,'weekly_sales_days':weekly_sales_days,'weekly_sales_price':weekly_sales_price,
+  'hourly_sales':hourly_sales,'hourly_sales_price':hourly_sales_price}
+    return(json.dumps(data,default=convert))
 
-	return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,Country_best_price=Country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
+	# return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,country_best_price=country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
+  
+
+@app.route('/customer_data')
+def customer_data():
+  usermap = user.customer_segments(user.user_id)
+  # lables=['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers']
+  return jsonify(usermap)
 
 
-@app.route('/get_data')
-def get_data():
+@app.route('/forcast')
+def forcast():
+    predictions,previous_sales = user.timeseries(user.user_id)
+    data = {'predictions':predictions,'previous_sales':previous_sales}
+    return(json.dumps(data))
 
-	months,years,invoice_counts,customer_counts,country_best_count,Country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights(user_id)
-
-
-
-
-	datasets = [{
-        'type'                : 'line',
-        'data'                : [100, 120, 170, 80, 180, 177, 160,45,467,23,456,12,356,46],
-        'backgroundColor'     : 'transparent',
-        'borderColor'         : '#007bff',
-        'pointBorderColor'    : '#007bff',
-        'pointBackgroundColor': '#007bff',
-        'fill'                : 'false'
-
-      },
-        {
-          'type'                : 'line',
-          'data'                : [60, 80, 160,45,467,23,456,12,356,46,80, 67, 80, 77, 100],
-          'backgroundColor'     : 'tansparent',
-          'borderColor'         : '#ced4da',
-          'pointBorderColor'    : '#ced4da',
-          'pointBackgroundColor': '#ced4da',
-          'fill'                : 'false'
-
-        }]
-
-	return jsonify(datasets)
 
 @app.after_request
 def add_header(response):
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	return response
+
+
 
 
 if __name__ == '__main__':
