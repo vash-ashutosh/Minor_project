@@ -429,10 +429,10 @@ if __name__ == '__main__':
         print('-------------------------------------------SEGMENTS----------------------------------------')
         user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
         
-        # for i in user_map:
-        #     print(i)
-        # for i in sales_map:
-        #     print(i)
+        for i in user_map:
+            print(i)
+        for i in sales_map:
+            print(i)
         # print(data_of_usermap)
         # print(data_of_sales_map)
 
