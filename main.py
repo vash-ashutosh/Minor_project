@@ -59,9 +59,18 @@ class  Retailor():
 
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         con.close()
-        print(df.head())
-        data = self.apriori.club(df)
+
+        data = pd.DataFrame
+        if len(df) < 100000:
+            print("Transactions too less for apriori")
+        else:    
+            data = self.apriori.club(df)
+            if data.empty:
+                print("No rules generated")
+        
         print(data.head())
+        
+
         # pass
 
 
@@ -76,7 +85,10 @@ class  Retailor():
        
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        
+        transactions = pd.read_sql_query('select * from transactions_'+str(id_no), con)
+        db_updater().generate_sales(con, cursorObj, transactions, id_no)
+
+
         ## need to add generate sales function as new everytime sales table will be generated as new addition of transactions wont add anything to sales table
         cursorObj.execute('SELECT Sales_table FROM retailor_data where retailor_id = ?',(id_no,))
         rows = cursorObj.fetchall()
@@ -131,9 +143,17 @@ class  Retailor():
         df = pd.read_sql_query("SELECT * FROM {}".format(filename_table), con)
         con.commit()
         con.close()
-        user_map =  self.seg.get_customer_segments(df)
+        user_map, sales_map, data_of_usermap, data_of_sales_map =  self.seg.get_customer_segments(df)
 
-        return user_map
+        # for i in user_map:
+        #     print(i, len(user_map[i][0]),  user_map[i][1])
+
+        # for i in sales_map:
+        #     print(i, len(sales_map[i][0]),  sales_map[i][1])
+
+
+
+        return user_map, sales_map, data_of_usermap, data_of_sales_map
         
 
 
@@ -404,13 +424,17 @@ if __name__ == '__main__':
 
         user.insights(id_no)
 
-        # print('-------------------------------------------CLUBBING----------------------------------------')
-        # user.clubbing(id_no)
+        print('-------------------------------------------CLUBBING----------------------------------------')
+        user.clubbing(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        map_users = user.customer_segments(id_no)
-        print('in main.py')
-        print(map_users)
-
+        user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
+        
+        # for i in user_map:
+        #     print(i)
+        # for i in sales_map:
+        #     print(i)
+        # print(data_of_usermap)
+        # print(data_of_sales_map)
 
     else:
         print('Customer')

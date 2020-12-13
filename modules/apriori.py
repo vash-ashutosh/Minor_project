@@ -8,11 +8,14 @@ class Apriori():
 
     def __init__(self):
         # self.data = pd.read_csv(str(os.getcwd())+'/database/create_manage/retailer/transactions_1.csv')
-        self.data = None
-        self.rules = None
-        self.final_rules = None
+        self.data = pd.DataFrame
+        self.rules = pd.DataFrame
+        self.final_rules = pd.DataFrame
 
     def get_rules(self):
+        if self.rules.empty:
+            return
+
         rules = self.rules.copy()
 
         # RULES WITH CONFIDENSE GREATER THAN 80%
@@ -37,7 +40,7 @@ class Apriori():
         df.dropna(axis=0, subset=['Description'], inplace=True)
 
 
-        # Converting all items in desciption of same invoice to columns 
+        #Converting all items in desciption of same invoice to columns 
         basket = (df[df['Country'] == 'France'].groupby(['Invoice', 'Description'])['Quantity']
                 .sum().unstack().reset_index().fillna(0)
                 .set_index('Invoice'))
@@ -49,14 +52,25 @@ class Apriori():
         basket_sets.drop('POSTAGE', inplace=True, axis=1)
         
         #Using Association
-        frequent_itemsets = apriori(basket_sets, min_support=0.03, use_colnames=True)
-        rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
-        self.rules = rules
+        frequent_itemsets = apriori(basket_sets, min_support=0.1, use_colnames=True)
+        print("Apriori done")
+        # print(type(frequent_itemsets))
+        if frequent_itemsets.empty == False:
+            rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+            self.rules = rules
+        else:
+            self.rules = pd.DataFrame
 
     def club(self, df):
         self.data = df
         self.preprocess()
         self.get_rules()
+        # print(len(self.rules))
+        # print(len(self.final_rules))
+        if self.rules.empty:
+            print("Transactions too less , No association rules found")
+
+        # print(self.rules)
         return self.rules
 
     def encode_units(self, x):
@@ -64,3 +78,11 @@ class Apriori():
             return 0
         if x >= 1:
             return 1
+
+if  __name__ == "__main__":    
+    a = Apriori()
+    df = pd.read_csv('../sample_csv/new_retailer.csv')
+
+    # print(df.head())
+    # df = df[:10000][:]
+    a.club(df)
