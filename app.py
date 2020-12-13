@@ -154,41 +154,25 @@ def show_data():
 	# return render_template('transactions.html',months=months,years=years,invoice_counts=invoice_counts,customer_counts=customer_counts,country_best_count=country_best_count,country_best_price=country_best_price,country_worst_count=country_worst_count,country_worst_price=country_worst_price,weekly_sales_days=weekly_sales_days,weekly_sales_price=weekly_sales_price,hourly_sales=hourly_sales,hourly_sales_price=hourly_sales_price)
   
 
-@app.route('/get_data')
-def get_data():
+@app.route('/customer_data')
+def customer_data():
+  usermap = user.customer_segments(user.user_id)
+  # lables=['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers']
+  return jsonify(usermap)
 
-	months,years,invoice_counts,customer_counts,country_best_count,country_best_price,country_worst_count,country_worst_price,weekly_sales_days,weekly_sales_price,hourly_sales,hourly_sales_price= user.insights('2')
 
+@app.route('/forcast')
+def forcast():
+    predictions,possible_min_sales,possible_max_sales,previous_sales = user.timeseries(user.user_id)
+    data = {'predictions':predictions,'possible_min_sales':possible_min_sales,'possible_max_sales':possible_max_sales,'previous_sales':previous_sales}
+    return(json.dumps(data))
 
-
-
-	datasets = [{
-        'type'                : 'line',
-        'data'                : [100, 120, 170, 80, 180, 177, 160,45,467,23,456,12,356,46],
-        'backgroundColor'     : 'transparent',
-        'borderColor'         : '#007bff',
-        'pointBorderColor'    : '#007bff',
-        'pointBackgroundColor': '#007bff',
-        'fill'                : 'false'
-
-      },
-        {
-          'type'                : 'line',
-          'data'                : [60, 80, 160,45,467,23,456,12,356,46,80, 67, 80, 77, 100],
-          'backgroundColor'     : 'tansparent',
-          'borderColor'         : '#ced4da',
-          'pointBorderColor'    : '#ced4da',
-          'pointBackgroundColor': '#ced4da',
-          'fill'                : 'false'
-
-        }]
-
-	return jsonify(datasets)
 
 @app.after_request
 def add_header(response):
 	response.headers['Access-Control-Allow-Origin'] = '*'
 	return response
+
 
 
 

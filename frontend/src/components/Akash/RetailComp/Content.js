@@ -53,7 +53,7 @@ export default function Content() {
                   </div>
                   {/* /.d-flex */}
                   <div className="position-relative mb-4">
-                    <canvas id="visitors-chart" height={200} />
+                    <canvas id="seg-chart" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
@@ -66,10 +66,10 @@ export default function Content() {
                 </div>
               </div>
               {/*Amans Bar graph 1 */}
-              <div className="card">
+              {/* <div className="card">
                 <div className="card-header border-0">
                   <div className="d-flex justify-content-between">
-                    <h3 className="card-title">Customer Segmentation</h3>
+                    <h3 className="card-title">Weekly Sales</h3>
                     <a href="javascript:void(0);">View Report</a>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ export default function Content() {
                   <div className="d-flex">
                     <p className="d-flex flex-column">
                       <span className="text-bold text-lg">$18,230.00</span>
-                      <span>Customer Segmentation</span>
+                      <span>Customer Count</span>
                     </p>
                     <p className="ml-auto d-flex flex-column text-right">
                       <span className="text-success">
@@ -87,8 +87,8 @@ export default function Content() {
                     </p>
                   </div>
                   {/* /.d-flex */}
-                  <div className="position-relative mb-4">
-                    <canvas id="cust-segment" height={200} />
+                  {/* <div className="position-relative mb-4">
+                    <canvas id="Customer-seg" height={200} />
                   </div>
                   <div className="d-flex flex-row justify-content-end">
                     <span className="mr-2">
@@ -99,7 +99,7 @@ export default function Content() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </div> */} 
               {/*Invoice per month */}
               <div className="card">
                 <div className="card-header border-0">

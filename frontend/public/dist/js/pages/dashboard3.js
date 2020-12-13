@@ -17,7 +17,7 @@ function custdata(){
 
 var customerdata = custdata()
 var respdata = getdata()
-console.log(respdata)
+console.log(customerdata)
 $(function () {
   'use strict'
 
@@ -177,7 +177,7 @@ var $invoiceChart = $('#Invoicechart')
       }
     }
   })
-  //Weekly sales
+  //Amans bar-1
 var $weeklysalesprice = $('#Weekly-sales')
 var $weeklysalesprice  = new Chart($weeklysalesprice, {
   type   : 'bar',
@@ -196,28 +196,7 @@ var $weeklysalesprice  = new Chart($weeklysalesprice, {
     
   }
 })
-
-//Customer Segmentation
-  var $custsegment = $('#cust-segment')
-  var $custsegment  = new Chart($custsegment, {
-    type   : 'bar',
-    data   : {
-      labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
-      datasets : [
-        {
-            label:'Customer Categories',
-            data: [customerdata.Lost[1],customerdata.Potential_layalist[1],customerdata.At_risk[1],customerdata.Promising[1],customerdata.Loyal_customers[1],customerdata.About_to_sleep[1],customerdata.Need_attention[1],customerdata.Cant_loose_them,customerdata.New_customers[1]],
-            backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#3FFA6','#1FCC46']
-        }
-    ]
-    },
-    options: {
-      maintainAspectRatio: false
-      
-    }
-  })
   
-
 var $hourlysales = $('#hourly-sales')
 var $hourlysales  = new Chart($hourlysales, {
   type   : 'bar',
@@ -237,6 +216,49 @@ var $hourlysales  = new Chart($hourlysales, {
   }
 })
 
+
+// var $segchart = $('#seg-chart')
+// var $segchart  = new Chart($segchart, {
+//   type   : 'bar',
+//   data   : {
+//     labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
+//     datasets : [
+//       {
+//           label:'Segmentation Chart',
+//           data:[customerdata["Lost"][1],customerdata["Potential layalist"][1],customerdata["At risk"][1],customerdata["Promising"][1],customerdata["Loyal customers"][1],customerdata["About to sleep"][1],customerdata["Need attention"][1],customerdata["Cant loose them"][1],customerdata["New customers"][1]],
+//           // backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6']
+//       }
+//   ]
+//   },
+//   options: {
+//     maintainAspectRatio: false
+    
+//   }
+// })
+
+var $hourlysales = $('#seg-chart')
+var $hourlysales  = new Chart($hourlysales, {
+  type   : 'bar',
+  data   : {
+    labels  : ['Lost','Potential loyalist','At risk','Promising','Loyal customers','About to sleep','Needing attention','Cant loose them','New customers'],
+    datasets : [
+      {
+          label:'Segmentation chart',
+          data:[customerdata["Lost"][1],customerdata["Potential loyalist"][1],customerdata["At risk"][1],customerdata["Promising"][1],customerdata["Loyal customers"][1],customerdata["About to sleep"][1],customerdata["Needing attention"][1],customerdata["Cant loose them"][1],customerdata["New customers"][1]],
+          backgroundColor:['#25DC80','#15C80','#415F80','#55AC80','#153A20','#73CC4F','#4FCCA6','#C0CC4F','#C0CC4F']
+      }
+  ]
+  },
+  options: {
+    maintainAspectRatio: false
+    
+  }
 })
 
 
+
+
+})
+
+
+  
