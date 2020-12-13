@@ -5,7 +5,7 @@ import sqlite3
 
 class db_updater():
 
-    def __iniT__(self):
+    def __init__(self):
         pass
 
     def find_next_invoice_no(self, transactions_1):
