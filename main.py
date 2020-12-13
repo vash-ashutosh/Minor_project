@@ -74,7 +74,7 @@ class  Retailor():
  
             data = data.sort_values(by=["confidence"], ascending=False)
 
-            data = data[:10][:]
+            data = data[:5][:]
             data["antecedents"] = data["antecedents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
             data["consequents"] = data["consequents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
             
