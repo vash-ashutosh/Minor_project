@@ -46,32 +46,27 @@ class segmentation():
         
         df = df[['Customer ID','new_label','sales_label']]
         
-        mp = {
-            'Lost'                       :[set(), 0],
-            'Potential loyalist'         :[set(), 0],
-            'At risk'                    :[set(), 0],
-            'Promising'                  :[set(), 0],
-            'Loyal customers'            :[set(), 0],
-            'About to sleep'             :[set(), 0],
-            'Needing attention'          :[set(), 0],
-            'Cant loose them'            :[set(), 0],
-            'New customers'              :[set(), 0]
-        } 
+        # mp = {
+        #     'Lost'                       :[set(), 0],
+        #     'Potential loyalist'         :[set(), 0],
+        #     'At risk'                    :[set(), 0],
+        #     'Promising'                  :[set(), 0],
+        #     'Loyal customers'            :[set(), 0],
+        #     'About to sleep'             :[set(), 0],
+        #     'Needing attention'          :[set(), 0],
+        #     'Cant loose them'            :[set(), 0],
+        #     'New customers'              :[set(), 0]
+        # } 
 
-        mp = {
-            'Lost'                       :[set(), 0],
-            'Potential loyalist'         :[set(), 0],
-            'At risk'                    :[set(), 0],
-            'Promising'                  :[set(), 0],
-            'Loyal customers'            :[set(), 0],
-            'About to sleep'             :[set(), 0],
-            'Needing attention'          :[set(), 0],
-            'Cant loose them'            :[set(), 0],
-            'New customers'              :[set(), 0]
-        } 
+
+        mp = dict()
+        new_label = df['new_label'].unique()
 
         mp2 = dict()
         sales_label = df['sales_label'].unique()
+
+        for i in new_label:
+            mp[i] = [ set(), 0]
 
         for i in sales_label:
             mp2[i] = [ set(), 0]
