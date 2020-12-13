@@ -67,8 +67,21 @@ class  Retailor():
             data = self.apriori.club(df)
             if data.empty:
                 print("No rules generated")
-        
-        print(data.head())
+
+            # print(data.columns)
+            # data = data[['antecedents', 'consequents', 'confidence']]
+            # data = pd.DataFrame(data)
+ 
+            data = data.sort_values(by=["confidence"], ascending=False)
+
+            data = data[:5][:]
+            data["antecedents"] = data["antecedents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
+            data["consequents"] = data["consequents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
+            
+            antecedents, consequents, confidence = list(data['antecedents']), list(data['consequents']), list(data['confidence'])
+            return antecedents, consequents, confidence
+            
+            
         
 
         # pass
@@ -153,9 +166,8 @@ class  Retailor():
         # for i in sales_map:
         #     print(i, len(sales_map[i][0]),  sales_map[i][1])
 
-
-
         # return user_map, sales_map, data_of_usermap, data_of_sales_map
+        
         return user_map
         
 
@@ -388,7 +400,7 @@ if __name__ == '__main__':
         loggedIn = False
 
 
-    # ##user registration
+    ##user registration
     # print('-------------------------------------------REGISTER----------------------------------------')
 
     # print('Enter the registration details : ')
@@ -404,6 +416,7 @@ if __name__ == '__main__':
 
     # print(reply)
 
+    # exit()
 
     #forecasting
 
