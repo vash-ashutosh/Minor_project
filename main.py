@@ -79,6 +79,7 @@ class  Retailor():
             data["consequents"] = data["consequents"].apply(lambda x: ', '.join(list(x))).astype("unicode")
             
             antecedents, consequents, confidence = list(data['antecedents']), list(data['consequents']), list(data['confidence'])
+            print(antecedents, consequents, confidence)
             return antecedents, consequents, confidence
             
             
@@ -233,12 +234,28 @@ class  Retailor():
         cursorObj.execute('SELECT * FROM registration_data where Email = ? AND Password = ?',(email,password,))
         rows = cursorObj.fetchall()
 
-        for row in rows:
-            
-            details = row
+        if len(rows) == 0:
+            print("Invalid username or password")
+        
+        else:
+                
+            for row in rows:
+                
+                details = row
 
-        con.close()
-        return details
+            con.close()
+            return details
+                
+        # for row in rows:
+            
+        #     details = row
+
+        # con.close()
+        # return details
+
+
+
+
 
 
     ##############################################################
@@ -392,15 +409,15 @@ if __name__ == '__main__':
 
     details = user.login(email,password)
 
-    if(details!=''):
-        print(details)
+    if(details != None):
+        print(type(details),details)
         loggedIn = True
     else:
         print('no such user exist! Enter correct id and Pass')
         loggedIn = False
 
 
-    ##user registration
+    #user registration
     # print('-------------------------------------------REGISTER----------------------------------------')
 
     # print('Enter the registration details : ')
