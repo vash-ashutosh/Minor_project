@@ -119,7 +119,7 @@ def register_user():
 	return render_template('home.html', mssg=reply,name=None,type_of_user=None)
 
 
-@app.route('/inputform_data',method = ['POST'])
+@app.route('/inputform_data',methods = ['POST'])
 def inputform_data():
   cust_id = request.form['cust_id']
   rtlr_id = request.form['rtlr_id']
@@ -128,6 +128,7 @@ def inputform_data():
   desc = request.form['desc']
   price = request.form['price']
   quantity = request.form['quantity']
+  inputform = user.form_transaction(stock_code,desc,quantity,price,country,cust_id,rtlr_id)
 
 #something here
 
