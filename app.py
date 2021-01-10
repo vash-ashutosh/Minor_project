@@ -119,6 +119,19 @@ def register_user():
 	return render_template('home.html', mssg=reply,name=None,type_of_user=None)
 
 
+@app.route('/inputform_data',method = ['POST'])
+def inputform_data():
+  cust_id = request.form['cust_id']
+  rtlr_id = request.form['rtlr_id']
+  country = request.form['country']
+  stock_code = request.form['stock_code']
+  desc = request.form['desc']
+  price = request.form['price']
+  quantity = request.form['quantity']
+
+#something here
+
+
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
