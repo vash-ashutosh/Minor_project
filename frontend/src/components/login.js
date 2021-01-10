@@ -41,6 +41,10 @@ export default class Login extends React.Component {
     if (!this.state.username) {
       usernameError = "Username cannot be blank";
     }
+    if(  !(this.state.username === 'sonu@gmail.com' || this.state.username === 'nigam@gmail.com' || this.state.username === 'rahul@gmail.com' || this.state.username === 'aman.r1298@gmail.com')){
+      usernameError = "Invalid User";
+
+    }
 
     if (!this.state.password) {
         passwordError = "Password cannot be blank";
@@ -119,9 +123,9 @@ export default class Login extends React.Component {
            <button type="submit" className="btn" style={{color:'#2ECE7E'}} onClick={this.handleSubmit}>
              Login
            </button>
-           <button type="submit" className="btn" style={{color:'#2ECE7E'}}onClick={() => history.push('/Register')} >
+           {/* <button type="submit" className="btn" style={{color:'#2ECE7E'}}onClick={() => history.push('/Register')} >
              Register
-           </button>
+           </button> */}
          </div>
          
          </form>
