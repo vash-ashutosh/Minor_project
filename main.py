@@ -256,10 +256,10 @@ class  Retailor():
 
 
     ######################################################################
-    def form_transaction(self, stockcode, description, quantity, price, country, customer_id, retailer_id ):
+    def form_transaction(self, stockcode, description, quantity, price, country, customer_id):
         con = sqlite3.connect('database/new_data.db')
         cursorObj = con.cursor()
-        self.db_updater.insert_into_transactions(stockcode, description, quantity, price, country, customer_id, retailer_id, con, cursorObj )
+        self.db_updater.insert_into_transactions(stockcode, description, quantity, price, country, customer_id, self.user_id, con, cursorObj )
         
 
 

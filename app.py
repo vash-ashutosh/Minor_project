@@ -128,7 +128,9 @@ def inputform_data():
   desc = request.form['desc']
   price = request.form['price']
   quantity = request.form['quantity']
-  inputform = user.form_transaction(stock_code,desc,quantity,price,country,cust_id,rtlr_id)
+  inputform = user.form_transaction(stock_code,desc,int(quantity),price,country,cust_id)
+
+  return "success"
 
 #something here
 
