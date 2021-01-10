@@ -470,7 +470,7 @@ if __name__ == '__main__':
         # user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
         user_map = user.customer_segments(id_no)
         print('-------------------------------------------SEGMENTS----------------------------------------')
-        # user.form_transaction('71053','WHITE METAL LANTERN', 50, 3.39, 'United Kingdom', 3, 1)
+        user.form_transaction('71053','WHITE METAL LANTERN', 50, 3.39, 'United Kingdom', 3, 1)
         # def form_transaction( stockcode, description, quantity, price, country, customer_id, retailer_id 
         # for i in user_map:
         #     print(i)
