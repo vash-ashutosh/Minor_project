@@ -1,6 +1,6 @@
 import sqlite3
 import pandas as pd
-
+import datetime
 from modules.apriori import Apriori
 from modules.segmentation import segmentation
 from modules.insights import insight_details,get_months_years
@@ -14,13 +14,14 @@ class  Retailor():
     name = 'default'
     user_type = 'customer'
     
-    def __init__(self, seg=segmentation(), Apriori = Apriori() ):
+    def __init__(self, seg=segmentation(), Apriori = Apriori(), db_updater = db_updater() ):
         """
             loads respective class's object in Retailor class
         """
         # self.plotting = plotting_sample()
         self.seg = seg
         self.apriori = Apriori
+        self.db_updater = db_updater
         
 
 
@@ -254,6 +255,15 @@ class  Retailor():
         # return details
 
 
+<<<<<<< HEAD
+    ######################################################################
+    def form_transaction(self, stockcode, description, quantity, price, country, customer_id, retailer_id ):
+        con = sqlite3.connect('database/new_data.db')
+        cursorObj = con.cursor()
+        self.db_updater.insert_into_transactions(stockcode, description, quantity, price, country, customer_id, retailer_id, con, cursorObj )
+
+=======
+>>>>>>> d8a9ec3a90b5d010a0d2057f61589615c3acf374
 
 
 
@@ -462,7 +472,9 @@ if __name__ == '__main__':
         print('-------------------------------------------SEGMENTS----------------------------------------')
         # user_map, sales_map, data_of_usermap, data_of_sales_map = user.customer_segments(id_no)
         user_map = user.customer_segments(id_no)
-        
+        print('-------------------------------------------SEGMENTS----------------------------------------')
+        user.form_transaction('71053','WHITE METAL LANTERN', 50, 3.39, 'United Kingdom', 3, 1)
+        # def form_transaction( stockcode, description, quantity, price, country, customer_id, retailer_id 
         # for i in user_map:
         #     print(i)
         # for i in sales_map:

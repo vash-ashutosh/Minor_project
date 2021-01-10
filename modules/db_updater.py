@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import sqlite3
+import datetime
 
 
 class db_updater():
@@ -36,10 +37,10 @@ class db_updater():
     def update_store(self, retailer_id, stockcode, quantity, cursorObj, con):
 
         sql = "update store_"+str(retailer_id)+" set Quantity = Quantity - "+str(quantity)+" WHERE StockCode = ?"
-        print(retailer_id, stockcode, quantity)
+        # print(retailer_id, stockcode, quantity)
         cursorObj.execute(sql, (stockcode,))
         con.commit()
-        print('updated store data of retailer')
+        print('updated store data of retailer_' + str(retailer_id))
 
     def insert_into_transactions(self, stockcode, description, quantity, price, country, customer_id, retailer_id, con, cursorObj):
     
@@ -49,35 +50,39 @@ class db_updater():
         transactions_table_name = val.fetchall()
         transactions_table_name = transactions_table_name[0][0]
         print("entered values in transactions_" +  str(retailer_id))
-
+        quantity_sql = "select Quantity from store_" + str(retailer_id)+ " where StockCode="+str(stockcode)
+        current_quantity = cursorObj.execute(quantity_sql).fetchall()[0][0]
+        print(current_quantity)
         #updating store_info of retailer
-        
-        sql = "update store_"+str(retailer_id)+" set Quantity = Quantity - "+str(quantity)+" WHERE StockCode = ?"
-        cursorObj.execute(sql, (stockcode,))
-        con.commit()
-        print('updated store data of retailer_'+str(retailer_id))
-
-        sql = "insert into "+str(transactions_table_name)+" values(?,?,?,?,?,?,?,?);"
-        query = "select * from " + transactions_table_name
-        
-        #getting complete transaction table
-        transactions_table = pd.read_sql_query(query,con)
-        
-        #Getting invoice number
-        invoice = self.find_next_invoice_no(transactions_table)
-        timestamp =  datetime.datetime.now().replace(microsecond = 0)
+        if current_quantity >= quantity:
+            self.update_store(retailer_id, stockcode, quantity, cursorObj, con) 
+            # sql = "update store_"+str(retailer_id)+" set Quantity = Quantity - "+str(quantity)+" WHERE StockCode = ?"
+            # cursorObj.execute(sql, (stockcode,))
+            # con.commit()
+            # print('updated store data of retailer_'+str(retailer_id))
+            print('transacrions_table_name ', transactions_table_name)
+            sql = "insert into "+str(transactions_table_name)+" values(?,?,?,?,?,?,?,?);"
+            query = "select * from " + transactions_table_name
             
-        details = (invoice, stockcode, description, quantity , timestamp, price, customer_id, country)
-        cursorObj.execute(sql, details)
+            #getting complete transaction table
+            transactions_table = pd.read_sql_query(query,con)
+            
+            #Getting invoice number
+            invoice = self.find_next_invoice_no(transactions_table)
+            timestamp =  datetime.datetime.now().replace(microsecond = 0)
+            print('Invoice ',invoice)
+            details = (invoice, stockcode, description, quantity , timestamp, price, customer_id, country)
+            cursorObj.execute(sql, details)
 
-        #Entering in customer order
-        sql = "insert into orders_"+str(customer_id)+" values(?,?,?,?,?,?,?);"
-        details = (invoice, stockcode, description, quantity , timestamp, price, country)
-        cursorObj.execute(sql, details)
-        print("entered the placed order in order table of customer_"+str(customer_id))
-        con.commit()
-
-        print('successfully completed transcation!')
+            #Entering in customer order
+            # sql = "insert into orders_"+str(customer_id)+" values(?,?,?,?,?,?,?);"
+            # details = (invoice, stockcode, description, quantity , timestamp, price, country)
+            # cursorObj.execute(sql, details)
+            # print("entered the placed order in order table of customer_"+str(customer_id))
+            con.commit()
+            print('successfully completed transcation!')
+        else:
+            print('Entered quantity greater than store quantity')
 
     def generate_sales(self, con, cursorObj, df, retailer_id):
 
@@ -122,10 +127,12 @@ class db_updater():
 
 
 # db = db_updater()
-# con = sqlite3.connect('./database/new_data.db')
+# con = sqlite3.connect('../database/new_data.db')
 # cursorObj = con.cursor()
-# df2 =  pd.read_sql_query('select * from transactions_1', con)
-# df  =  pd.read_sql_query('select * from store_1', con)
+# # # db.inserform_transaction('71053','WHITE METAL LANTERN', 50, 3.39, 'United Kingdom', 3, 1)
+# db.insert_into_transactions('71053','WHITE METAL LANTERN', 50, 3.39, 'United Kingdom', 3, 1, con, cursorObj)
+# # # df2 =  pd.read_sql_query('select * from transactions_1', con)
+# # df  =  pd.read_sql_query('select * from store_1', con)
 # db.upload_csv(con, cursorObj, 1, df, df2)
 
 # print("updating for retailer 1")
