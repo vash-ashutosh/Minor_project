@@ -17,6 +17,28 @@ const initialState={
     retidError:"",
     countryError:""
 }
+
+export function postdata(state){
+  var formdata = new FormData();
+  formdata.append("cust_id",state.custid);
+  formdata.append("rtlr_id",state.retid);
+  formdata.append("country",state.country);
+  formdata.append("stock_code",state.stockcode);
+  formdata.append("desc",state.description);
+  formdata.append("price",state.price);
+  formdata.append("quantity",state.quantity);
+
+  var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+  };
+  var req = fetch("http://127.0.0.1:5000/inputform_data", requestOptions)
+    .then(response => response.json())
+    // .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  return req
+}
 export default class Datainput extends React.Component {
    
    state=initialState
@@ -65,7 +87,12 @@ export default class Datainput extends React.Component {
       return false;
     }
     
-    
+    let httpresp = postdata(this.state)
+                  .then(data => console.log(data))
+
+    if (httpresp){
+      return true;
+    }
     return true;
 
   
