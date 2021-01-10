@@ -25,12 +25,6 @@ class segmentation():
     def get_customer_segments(self,df):
         self.sales = df
         self.preprocess()
-        # self.plot()
-        # print(self.processed_data['new_label'].unique())
-        # print(self.processed_data['new_label'][:10])
-        # print(self.processed_data['sales_label'][:10])
-        # print(self.processed_data['comms_label'][:10])
-    
         return self.get_formatted_data(self.processed_data)
     
     def get_formatted_data(self, df):
@@ -73,12 +67,6 @@ class segmentation():
             mp2[i][0] = list(mp2[i][0])
             mp2[i][1] = len(mp2[i][0])
 
-        # for i in mp2:
-        #     print(i, len(mp2[i][0]), mp2[i][1])
-        
-        # cluster1_data is for mp2 
-        # cluster2_data i for mp
-        #  
         # return mp,mp2,self.cluster2_data,self.cluster1_data
         return mp
 
